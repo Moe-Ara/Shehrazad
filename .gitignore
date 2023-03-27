@@ -95,3 +95,6 @@ out/
 .vscode
 
 .venv/
+
+#properties
+properties.properties
