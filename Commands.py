@@ -18,12 +18,15 @@ bot_id = Common.bot_id
 
 
 class Command:
-    def __init__(self, cmdText, aliases, arguments, function):
+    def __init__(self, cmdText, aliases, arguments, function, description="None",usage_example=""):
         self.CommandText = cmdText.lower()
         self.aliases = [cmdText] + aliases
         self.CommandArguments = arguments
         self.function = function
-
+        self.description=description
+        self.usage_example=usage_example
+    def toString(self):
+        return f"Command {self.CommandText} {self.description}; it has the following aliases {str(self.aliases)}"
     def execute(self, args):
         return self.function(args)
 
@@ -36,8 +39,8 @@ def is_connected(ctx):
 
 async def leaveCommand(ctx):
     if is_connected(ctx):
-        for x in ctx.author.voice.channel.members:
-            if x.id == bot_id:
+        for member in ctx.author.voice.channel.members:
+            if str(member.id) == bot_id:
                 await ctx.voice_client.disconnect()
                 Common.channel = None
                 Common.connected_to_voice_chat = False
@@ -131,14 +134,24 @@ async def getWeather(city):
         for forcasts in weather.forecasts:
             await Common.context.send(f"Temperature in {city} on {forcasts.date} : {forcasts.highest_temperature} C <-> {forcasts.lowest_temperature} C")
 
+#TODO: extend this so that it can also be used for specific commands
+async def helpCommand(cmd=""):
+    msg = ""
+    if cmd=="":
+        for command in CommandList:
+            msg = msg+ command.toString()+"\n"
+        await Common.context.send(msg)
+        return
 
+#TODO: extend commands by providing usage_example
 ###COMMANDS
-join = Command('join', ['j', 'connect'], [], joinCommand)
-leave = Command('leave', ['l', 'disconnect'], [], leaveCommand)
-play = Command('play', ['p', 'l3be'], [], playCommand)
-skip = Command('skip', ['s'], [], skipCommand)
-hentai= Command('hentai', ['h','sexme','sendnudes','sn'], [], sendHentaiCommand)
-weather= Command('weather', ['getweather','temp', 'w', 'forcast'],[],getWeather)
+join = Command('join', ['j', 'connect'], [], joinCommand, "joins a voice channel")
+leave = Command('leave', ['l', 'disconnect'], [], leaveCommand, "leaves the voice channel")
+play = Command('play', ['p', 'l3be'], [], playCommand, "plays a song. You need to provide a url")
+skip = Command('skip', ['s'], [], skipCommand, "skips the playing song")
+hentai= Command('hentai', ['h','sexme','sendnudes','sn'], [], sendHentaiCommand, "sends some hentai photos ;)")
+weather= Command('weather', ['getweather','temp', 'w', 'forcast'],[],getWeather, "checks the weather. You need to provide a city")
+help= Command('help',['h'],[],helpCommand,"helps you with commands")
 # COMMAND LIST
 CommandList = []
 CommandList.append(join)
