@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: d-py
+Version: 0.0.3
+Summary: helper package for discord.py processes
+Author: Andrew Bordis
+Author-email: andrewbordis111@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: discord.py (>=1.7.3,<2.0.0)
