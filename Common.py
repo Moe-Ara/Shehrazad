@@ -8,7 +8,7 @@ intents.messages = True
 intents.members = True
 intents.message_content = True
 client=discord.Client(intents=intents)
-TOKEN = 'ODkyNzMxMzE1OTI4MDQ3NjM3.GiHuUZ.9pqkNnkF-HKOYwagVOTr3d5Y2J9Uwx74RTzTwk'
+TOKEN = 
 bot = commands.Bot(command_prefix='',intents=discord.Intents.all())
 bot_id = 892731315928047637
 voice_client=None
