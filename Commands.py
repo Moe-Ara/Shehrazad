@@ -78,10 +78,10 @@ async def playCommand(links):
         await joinCommand(Common.context)
     # name = await DownloadSongs.downloadYoutube(links=links[0])
     ydl_opts = {'format': 'bestaudio/best',
-                # 'postprocessors': [{
-                #     'key': 'FFmpegExtractAudio',
-                #     'preferredquality': '192',
-                # }]
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredquality': '192',
+                }]
                 }
     ##! Downloading song
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
