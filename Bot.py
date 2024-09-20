@@ -95,7 +95,7 @@ async def play(ctx, url):
 
     song_queue.append(song)
     await ctx.send(f"Added {info['title']} to the queue.")
-    if is_playing:
+    if not is_playing:
         await play_next(ctx)
 
 
