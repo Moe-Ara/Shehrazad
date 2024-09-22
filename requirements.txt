@@ -1,7 +1,6 @@
 discord.py
 d-py
 PyNaCl
-# youtube_dl==2021.6.6
 python-dotenv
 python-weather
 yt-dlp
