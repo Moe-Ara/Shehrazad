@@ -98,3 +98,4 @@ out/
 
 #properties
 properties.properties
+/venv/*
