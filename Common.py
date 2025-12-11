@@ -7,7 +7,10 @@ config.read('properties.properties')
 intents = discord.Intents.default()
 intents.messages = True
 intents.members = True
-intents.message_content = True
+try:
+    intents.message_content = True
+except AttributeError:
+    pass
 client=discord.Client(intents=intents)
 TOKEN = config.get('configs','BOT_TOKEN')
 bot = commands.Bot(command_prefix='',intents=discord.Intents.all())

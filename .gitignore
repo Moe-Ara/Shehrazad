@@ -67,6 +67,16 @@ typings/
 # next.js build output
 .next
 
+# Python environment directories
+Include/
+Lib/
+Scripts/
+venv/
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
 # nuxt.js build output
 .nuxt
 
