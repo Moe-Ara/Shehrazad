@@ -1,6 +1,6 @@
 discord.py
-d-py
 PyNaCl
 python-dotenv
 python-weather
 yt-dlp
+davey

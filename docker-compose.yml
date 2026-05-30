@@ -1,0 +1,7 @@
+services:
+  shehrazad:
+    build: .
+    container_name: shehrazad
+    restart: unless-stopped
+    volumes:
+      - ./properties.properties:/app/properties.properties:ro

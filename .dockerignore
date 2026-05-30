@@ -1,0 +1,18 @@
+# Local Python virtualenv (Windows-style and POSIX layouts)
+venv/
+.venv/
+Include/
+Lib/
+Scripts/
+__pycache__/
+*.py[cod]
+
+# Editors / VCS
+.git/
+.idea/
+.vscode/
+
+# Secrets & runtime config — mounted at runtime, never baked into the image
+properties.properties
+cookies.txt
+.env
