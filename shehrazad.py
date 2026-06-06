@@ -72,6 +72,15 @@ ytdl_format_options = {
 
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
+# Flat extractor for playlists: list every entry's page URL fast, without
+# resolving each track's stream up front (play_next resolves on demand).
+ytdl_playlist_options = {
+    **ytdl_format_options,
+    'noplaylist': False,
+    'extract_flat': 'in_playlist',
+}
+ytdl_playlist = youtube_dl.YoutubeDL(ytdl_playlist_options)
+
 song_queue = []
 is_playing = False
 current_song = None
@@ -344,6 +353,23 @@ def is_url(value):
     return bool(re.match(r'^(https?://|ftp://|www\.)', value, re.IGNORECASE))
 
 
+def is_playlist_url(url):
+    """True when the URL points at a collection of tracks, not a single one."""
+    if not is_url(url):
+        return False
+    lowered = url.lower()
+    # YouTube playlists / mixes
+    if 'list=' in lowered or '/playlist' in lowered:
+        return True
+    # SoundCloud sets
+    if 'soundcloud.com' in lowered and '/sets/' in lowered:
+        return True
+    # Spotify playlists / albums
+    if 'spotify.com' in lowered and ('/playlist/' in lowered or '/album/' in lowered):
+        return True
+    return False
+
+
 async def queue_song(ctx, user, url):
     voice_client = await ensure_voice_connection(ctx, user)
     if voice_client is None or not voice_client.is_connected():
@@ -404,6 +430,66 @@ async def queue_song(ctx, user, url):
     await send_response(ctx, f" :يتم تشغيل {info.get('title', 'Unknown Track')}")
     if not is_playing:
         await play_next(ctx)
+
+
+async def queue_playlist(ctx, user, url, shuffle=False):
+    voice_client = await ensure_voice_connection(ctx, user)
+    if voice_client is None or not voice_client.is_connected():
+        return
+
+    try:
+        with ytdl_playlist:
+            info = ytdl_playlist.extract_info(url, download=False)
+    except DownloadError as exc:
+        await send_response(ctx, "ما قدرت أقرأ البلايليست.")
+        await send_response(ctx, str(exc))
+        return
+    except Exception as exc:
+        await send_response(ctx, "خطأ بقراءة البلايليست.")
+        await send_response(ctx, str(exc))
+        return
+
+    entries = info.get('entries') if isinstance(info, dict) else None
+    if not entries:
+        # Not actually a playlist (or unsupported) — treat it as a single track.
+        await queue_song(ctx, user, url)
+        return
+
+    new_songs = []
+    for entry in entries:
+        if not entry:
+            continue
+        source_url = entry.get('url') or entry.get('webpage_url') or entry.get('original_url')
+        if not source_url:
+            continue
+        new_songs.append({
+            'source_url': source_url,
+            'title': entry.get('title', 'Unknown Track'),
+            'duration': entry.get('duration'),
+        })
+
+    if not new_songs:
+        await send_response(ctx, "البلايليست فاضية أو ما قدرت أقرأها.")
+        return
+
+    if shuffle:
+        random.shuffle(new_songs)
+
+    song_queue.extend(new_songs)
+    playlist_title = info.get('title') or 'البلايليست'
+    shuffle_note = " (مخلوطة 🔀)" if shuffle else ""
+    await send_response(ctx, f"📃 ضفت {len(new_songs)} مقطع من «{playlist_title}»{shuffle_note}.")
+    if not is_playing:
+        await play_next(ctx)
+
+
+async def enqueue(ctx, user, query, shuffle=False):
+    """Route a play request to playlist or single-track handling."""
+    if is_playlist_url(query):
+        await queue_playlist(ctx, user, query, shuffle=shuffle)
+    else:
+        await queue_song(ctx, user, query)
+
 
 def build_queue_embed():
     embed = discord.Embed(title="قائمة الأغاني", color=0x2F3136)
@@ -566,14 +652,34 @@ async def babe(ctx):
 
 @bot.command(aliases=['p', 'l3be'])
 async def play(ctx, *, query: str):
-    await queue_song(ctx, ctx.author, query)
+    await enqueue(ctx, ctx.author, query)
 
 
 @bot.tree.command(name="play")
-@app_commands.describe(query="URL or search terms for the song")
+@app_commands.describe(query="URL or search terms for the song (playlist URLs queue every track)")
 async def slash_play(interaction: discord.Interaction, query: str):
     await interaction.response.defer(thinking=True)
-    await queue_song(interaction, interaction.user, query)
+    await enqueue(interaction, interaction.user, query)
+
+
+@bot.command(name='playlist', aliases=['pl'])
+async def playlist_cmd(ctx, *, url: str):
+    await queue_playlist(ctx, ctx.author, url)
+
+
+@bot.command(name='shuffleplay', aliases=['sp'])
+async def shuffle_playlist(ctx, *, url: str):
+    await queue_playlist(ctx, ctx.author, url, shuffle=True)
+
+
+@bot.tree.command(name="playlist")
+@app_commands.describe(
+    url="URL of a YouTube/SoundCloud playlist or album",
+    shuffle="اخلط ترتيب المقاطع قبل ما تضيفهن",
+)
+async def slash_playlist(interaction: discord.Interaction, url: str, shuffle: bool = False):
+    await interaction.response.defer(thinking=True)
+    await queue_playlist(interaction, interaction.user, url, shuffle=shuffle)
 
 
 @bot.tree.command(name="queue")
