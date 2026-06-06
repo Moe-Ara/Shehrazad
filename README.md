@@ -10,6 +10,7 @@ Just to let you know, Shehrazad replies in Arabic. It is functional, and anyone 
 - **Join Voice Channel**: The bot joins the user's current voice channel.
 - **Play Music**: Streams music from a provided YouTube URL.
 - **Queue System**: Automatically queues songs.
+- **Playlists**: Queues every track from a YouTube/SoundCloud playlist or album in one command (with optional shuffle).
 - **Skip Track**: Skips the current playing track.
 - **Leave Channel**: Disconnects the bot from the voice channel.
 
@@ -54,6 +55,10 @@ python bot.py
 Commands:
 
 - **`!join` / `!j` / `!connect` / `!t3e`**: The bot joins your voice channel.
-- **`!play [YouTube URL]` / `!p` / `!l3be`**: The bot plays a song from the given YouTube URL.
+- **`!play [URL or search terms]` / `!p` / `!l3be`**: Plays a song. If the URL is a playlist, every track is queued automatically.
+- **`!playlist [playlist URL]` / `!pl`**: Queues every track from a YouTube/SoundCloud playlist or album.
+- **`!shuffleplay [playlist URL]` / `!sp`**: Same as `!playlist`, but shuffles the tracks before queueing.
 - **`!skip` / `!s`**: Skips the current song.
 - **`!leave` / `!l` / `!disconnect` / `!ro7e`**: The bot leaves the voice channel.
+
+Slash commands are also available: `/play`, `/playlist` (with a `shuffle` option), `/queue`, `/nowplaying`, and the audio-effect commands.
