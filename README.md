@@ -55,10 +55,12 @@ python bot.py
 Commands:
 
 - **`!join` / `!j` / `!connect` / `!t3e`**: The bot joins your voice channel.
-- **`!play [URL or search terms]` / `!p` / `!l3be`**: Plays a song. If the URL is a playlist, every track is queued automatically.
-- **`!playlist [playlist URL]` / `!pl`**: Queues every track from a YouTube/SoundCloud playlist or album.
+- **`!play [URL or search terms]` / `!p` / `!l3be`**: Plays a song. A link to a single video/track queues just that song, even if YouTube added `&list=...` to it (mix/radio links). A real playlist link (`youtube.com/playlist?list=...`, SoundCloud `/sets/`, Spotify playlist/album) queues every track.
+- **`!playlist [playlist URL]` / `!pl`**: Forces playlist mode: queues every track from the URL's playlist or album (also works on a `watch?v=...&list=...` link).
 - **`!shuffleplay [playlist URL]` / `!sp`**: Same as `!playlist`, but shuffles the tracks before queueing.
+- **`!nowplaying` / `!np`**: Shows the current track and progress.
+- **`!volume [0-200]` / `!vol` / `!v`**: Sets the playback volume.
 - **`!skip` / `!s`**: Skips the current song.
 - **`!leave` / `!l` / `!disconnect` / `!ro7e`**: The bot leaves the voice channel.
 
-Slash commands are also available: `/play`, `/playlist` (with a `shuffle` option), `/queue`, `/nowplaying`, and the audio-effect commands.
+Slash commands are also available: `/play`, `/playlist` (with a `shuffle` option), `/queue`, `/nowplaying`, and `/volume`.
