@@ -1,6 +1,9 @@
-discord.py
-PyNaCl
+discord.py>=2.7.1,<2.8
+# Version range discord.py 2.7 declares for voice.
+PyNaCl>=1.5.0,<1.6
 python-dotenv
 python-weather
 yt-dlp
-davey
+# davey 0.2 needs prepare_transition/execute_transition calls that discord.py 2.7
+# doesn't make, so the E2EE session never becomes ready and the bot plays silence.
+davey>=0.1.7,<0.2
