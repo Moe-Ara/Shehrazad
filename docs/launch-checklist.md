@@ -53,7 +53,7 @@ live on Discord** · `[ ]` open · `[!]` blocked on an owner/external action.
 - [x] Health/readiness/metrics endpoints (tests)
 - [x] Graceful shutdown; non-root container; healthcheck; log rotation
 - [x] Kill switches without restart
-- [ ] Docker image build verified (local Docker daemon was not running; build on staging)
+- [x] Docker image builds on the VPS and boots offline as uid 10001 (`shehrazad:2.0.0`)
 - [ ] Staging Discord application + `DEV_GUILD_ID`
 - [ ] Off-box backups scheduled; restore rehearsed
 - [ ] Alerts wired (see operator guide)

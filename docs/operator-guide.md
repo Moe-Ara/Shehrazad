@@ -18,19 +18,22 @@ Migrations run automatically at startup (`schema_migrations` table). Run them ma
 
 ### Upgrading the current VPS (v1 → v2) — not done yet, needs your go-ahead
 
-The VPS at `/opt/shehrazad` runs v1. To move it to this version:
+The VPS at `/opt/shehrazad` runs v1. v2 is already **built and staged** at `/opt/shehrazad.new`
+(image `shehrazad:2.0.0`), and its database already holds lifetime premium grants for your three
+servers. To switch:
 
-1. `cd /opt/shehrazad && docker compose down` (the old container has no state worth keeping).
-2. Replace the code with this branch (git clone/pull or upload), keep `properties.properties`.
-3. Create `.env` with at least `LEGACY_PREFIX_COMMANDS=true` so `!p`, `!l3be`, `!t3e`, `!ro7e` keep
-   working for your community (the Message Content intent is already enabled for this app, since v1
-   used it). The token can stay in `properties.properties`, or move it to `DISCORD_TOKEN`.
-4. `mkdir -p data && chown 10001:10001 data && docker compose up -d --build`.
-5. Slash commands change on first start (sync happens once; Discord clients may take a minute and
-   may need Ctrl+R).
+1. In `/opt/shehrazad.new`, create `.env` (mode 600) with `DISCORD_TOKEN=…`,
+   `ENVIRONMENT=production`, `LOG_JSON=true`, `LEGACY_PREFIX_COMMANDS=true` (keeps `!p`, `!l3be`,
+   `!t3e`, `!ro7e` working; the Message Content intent is already enabled since v1 used it) and
+   `IMAGE_TAG=2.0.0`. Put the token in `.env`, not only in `properties.properties`: the v2 container
+   runs as uid 10001 and cannot read a root-only `properties.properties`.
+2. `cd /opt/shehrazad && docker compose down`
+3. `cd /opt && mv shehrazad shehrazad.v1 && mv shehrazad.new shehrazad`
+4. `cd /opt/shehrazad && docker compose up -d` then `curl -s localhost:8080/readyz` → `"ready": true`.
+5. Slash commands change on first start (sync happens once; Discord clients may need Ctrl+R).
 
-Rollback: `git checkout <previous tag>` and `docker compose up -d --build`. v2's database is
-additive; v1 ignores it.
+Rollback: `cd /opt/shehrazad && docker compose down && cd /opt && mv shehrazad shehrazad.v2 &&
+mv shehrazad.v1 shehrazad && cd shehrazad && docker compose up -d`. v1 ignores v2's data.
 
 ## Configuration
 
