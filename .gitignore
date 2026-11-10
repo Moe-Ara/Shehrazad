@@ -108,3 +108,14 @@ out/
 
 #properties
 properties.properties
+
+# Runtime data (SQLite database)
+data/
+*.db
+*.db-shm
+*.db-wal
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

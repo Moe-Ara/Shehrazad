@@ -1,7 +1,22 @@
+# Production:  docker compose up -d --build
+# Staging:     docker compose -p shehrazad-staging --env-file .env.staging up -d --build
+#              (use a separate Discord application/token and DEV_GUILD_ID for staging)
 services:
   shehrazad:
     build: .
-    container_name: shehrazad
+    image: shehrazad:${IMAGE_TAG:-latest}
     restart: unless-stopped
+    env_file: .env
     volumes:
+      - ./data:/app/data
+      # Legacy: a properties.properties with BOT_TOKEN still works if DISCORD_TOKEN is unset.
       - ./properties.properties:/app/properties.properties:ro
+    ports:
+      # Health/metrics for local monitoring only — never expose publicly.
+      - "127.0.0.1:${HEALTH_HOST_PORT:-8080}:8080"
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"

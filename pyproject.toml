@@ -1,0 +1,42 @@
+[project]
+name = "shehrazad"
+version = "2.0.0"
+description = "Shehrazad — a Discord music bot"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning:discord.*"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py312"
+extend-exclude = ["venv", ".venv", "yt-dlp-cache"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "ASYNC", "S", "SIM", "RUF"]
+ignore = [
+    "S101",    # asserts are used for type narrowing
+    "S104",    # binding 0.0.0.0 is intentional inside the container
+    "S311",    # random is fine for shuffling
+    "S608",    # SQL built only from fixed table/column names, values are parameterised
+    "B008",
+    "RUF001", "RUF002", "RUF003",  # Arabic text and typographic characters are intentional
+    "RUF006",  # fire-and-forget tasks are tracked where it matters
+    "SIM102",  # nested ifs are kept where they read more clearly
+    "SIM105",
+    "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_unused_ignores = false
+check_untyped_defs = true
+no_implicit_optional = true
+exclude = ["venv/", ".venv/", "tests/"]

@@ -1,4 +1,4 @@
-# Local Python virtualenv (Windows-style and POSIX layouts)
+# Local Python virtualenvs
 venv/
 .venv/
 Include/
@@ -12,7 +12,16 @@ __pycache__/
 .idea/
 .vscode/
 
-# Secrets & runtime config — mounted at runtime, never baked into the image
+# Not needed in the image
+tests/
+docs/
+yt-dlp-cache/
+data/
+*.db
+*.db-*
+
+# Secrets & runtime config — provided at runtime, never baked into the image
 properties.properties
 cookies.txt
 .env
+.env.*
