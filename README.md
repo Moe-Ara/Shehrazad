@@ -1,66 +1,65 @@
+# Shehrazad — Discord music bot
 
-## Discord Music Bot
+Search or paste a link, and control everything from one player panel. Multi-server, slash-first,
+with a free tier that never paywalls playback and a per-server Premium tier built on Discord's
+Premium Apps. Replies in English or Arabic.
 
-This bot allows users to stream music from YouTube to a Discord voice channel using `yt-dlp` for YouTube link processing and `discord.py` for bot interactions. It supports basic commands for joining/leaving voice channels, playing/pausing music, and skipping tracks.
+## Features
+- `/play` by name, YouTube/SoundCloud link, playlist link or uploaded audio file (song links with
+  `&list=` play just that song; `/playlist` queues the whole list)
+- Persistent Now Playing panel: back, pause/resume, skip, stop, repeat, shuffle, volume, queue, like
+- Queue: view (paginated), remove, move, jump, shuffle, clear, seek, previous, repeat track/queue
+- Vote-skip, DJ role, DJ mode, request permissions, `/setup` wizard with permission diagnostics
+- Favorites, recently played, saved server playlists ✨, 24/7 ✨, queue restore ✨
+- `/help`, `/premium`, `/status`, `/privacy` (export/delete), `/feedback`, `/invite`, `/support`, `/about`
+- Optional legacy `!` commands (`!p`, `!l3be`, `!t3e`, `!ro7e`, …)
 
-Just to let you know, Shehrazad replies in Arabic. It is functional, and anyone can use it since the commands are in English. Enjoy
+Full list: [docs/commands.md](docs/commands.md). Tiers: [docs/premium-feature-matrix.md](docs/premium-feature-matrix.md).
 
-### Features
-
-- **Join Voice Channel**: The bot joins the user's current voice channel.
-- **Play Music**: Streams music from a provided YouTube URL.
-- **Queue System**: Automatically queues songs.
-- **Playlists**: Queues every track from a YouTube/SoundCloud playlist or album in one command (with optional shuffle).
-- **Skip Track**: Skips the current playing track.
-- **Leave Channel**: Disconnects the bot from the voice channel.
-
-### Prerequisites
-
-Ensure you have Python installed and the following packages:
-
-- `discord.py`
-- `yt-dlp`
-- `ffmpeg`
-
-To install the necessary packages:
+## Run it
 
 ```bash
-pip install discord.py yt-dlp
+cp .env.example .env        # set DISCORD_TOKEN
+mkdir -p data && sudo chown 10001:10001 data
+docker compose up -d --build
 ```
 
-You also need `FFmpeg` installed. Follow the instructions for your OS [here](https://ffmpeg.org/download.html).
-
-### Setup
-
-1. Create a `Common.py` file with the following variables:
-
-```python
-# Common.py
-bot_id = 'YOUR_BOT_ID'
-TOKEN = 'YOUR_DISCORD_BOT_TOKEN'
-coming_to_vc_responses = ["response1", "response2", ...] # Add your responses here
-disconnecting_from_vc_responses = ["response1", "response2", ...] # Add your responses here
-```
-
-2. Add your bot token and relevant responses in the `Common.py` file.
-
-3. Run the bot:
+Without Docker (Python 3.12+, FFmpeg and libopus installed):
 
 ```bash
-python bot.py
+python -m venv .venv && .venv/bin/pip install -r requirements.txt
+python -m musicbot          # or: python shehrazad.py
 ```
 
-### Usage
+A `properties.properties` file with `[configs] BOT_TOKEN=…` still works if `DISCORD_TOKEN` is unset.
 
-Commands:
+## Give your own server Premium for free
 
-- **`!join` / `!j` / `!connect` / `!t3e`**: The bot joins your voice channel.
-- **`!play [URL or search terms]` / `!p` / `!l3be`**: Plays a song. A link to a single video/track queues just that song, even if YouTube added `&list=...` to it (mix/radio links). A real playlist link (`youtube.com/playlist?list=...`, SoundCloud `/sets/`, Spotify playlist/album) queues every track.
-- **`!playlist [playlist URL]` / `!pl`**: Forces playlist mode: queues every track from the URL's playlist or album (also works on a `watch?v=...&list=...` link).
-- **`!shuffleplay [playlist URL]` / `!sp`**: Same as `!playlist`, but shuffles the tracks before queueing.
-- **`!nowplaying` / `!np`**: Shows the current track and progress.
-- **`!volume [0-200]` / `!vol` / `!v`**: Sets the playback volume.
-- **`!skip` / `!s`**: Skips the current song.
-- **`!leave` / `!l` / `!disconnect` / `!ro7e`**: The bot leaves the voice channel.
+```bash
+docker compose exec shehrazad python -m musicbot.cli premium grant <server_id> --reason "owner"
+```
 
-Slash commands are also available: `/play`, `/playlist` (with a `shuffle` option), `/queue`, `/nowplaying`, and `/volume`.
+Never expires, audited, applies within a minute. Details and the Discord-native alternatives:
+[docs/operator-guide.md](docs/operator-guide.md#premium-for-your-own-servers-lifetime-no-payment).
+
+## Develop
+
+```bash
+pip install -r requirements-dev.txt
+pytest            # 129 tests, no network or Discord needed
+ruff check .
+mypy musicbot
+```
+
+Layout: `musicbot/` (bot.py wiring · service.py behaviour · player.py/queue.py playback ·
+sources.py providers · premium.py entitlements · store.py/db.py persistence · cogs/ commands ·
+ui.py embeds/views · i18n.py text · health.py/ops.py operations · cli.py operator tools).
+
+## Docs
+- [Commercial readiness report](docs/commercial-readiness.md) — audit, top issues, compliance, plan
+- [Launch checklist](docs/launch-checklist.md)
+- [Premium feature matrix](docs/premium-feature-matrix.md)
+- [Cost model](docs/commercial-cost-model.md)
+- [Operator guide](docs/operator-guide.md) — deploy, staging, backups, monitoring, incidents, scaling
+- [Command reference](docs/commands.md)
+- Drafts needing legal review: [Terms](docs/terms-of-service.md), [Privacy](docs/privacy-policy.md), [App Directory copy](docs/app-directory.md)

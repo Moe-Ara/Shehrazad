@@ -143,3 +143,18 @@ def test_rate_limiter_bucket():
     limiter.allow("b", now=1)
     limiter.allow("c", now=1)
     assert len(limiter._buckets) == 2  # bounded memory
+
+
+def test_dotenv_loader_handles_quotes_and_inline_comments(tmp_path, monkeypatch):
+    from musicbot.config import load_dotenv_file
+
+    env_file = tmp_path / ".env"
+    env_file.write_text('# c\nSHZ_A=production   # comment\nSHZ_B="quoted # not a comment"\nSHZ_C=\n', encoding="utf-8")
+    for key in ("SHZ_A", "SHZ_B", "SHZ_C"):
+        monkeypatch.delenv(key, raising=False)
+    load_dotenv_file(env_file)
+    import os
+
+    assert os.environ["SHZ_A"] == "production"
+    assert os.environ["SHZ_B"] == "quoted # not a comment"
+    assert os.environ["SHZ_C"] == ""

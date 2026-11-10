@@ -46,8 +46,8 @@ class Settings:
     legacy_prefix: str = "!"
     dev_guild_id: int | None = None
     sync_commands: bool = True
-    max_sessions_soft: int = 50
-    max_sessions_hard: int = 75
+    max_sessions_soft: int = 20
+    max_sessions_hard: int = 25
     history_retention_days: int = 30
     departed_guild_retention_days: int = 30
     feedback_retention_days: int = 90
@@ -128,7 +128,11 @@ def load_dotenv_file(path: Path = Path(".env")) -> None:
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, _, value = line.partition("=")
-        key, value = key.strip(), value.strip().strip('"').strip("'")
+        key, value = key.strip(), value.strip()
+        if value[:1] in ('"', "'") and value[-1:] == value[:1]:
+            value = value[1:-1]
+        elif " #" in value:
+            value = value.split(" #", 1)[0].rstrip()  # inline comment on an unquoted value
         if key and key not in os.environ:
             os.environ[key] = value
 
