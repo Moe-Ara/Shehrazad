@@ -1,0 +1,261 @@
+<!doctype html>
+<!--
+  Shehrazad background art. Render with a headless browser:
+    msedge --headless=new --hide-scrollbars --window-size=1920,1080 --screenshot=background-1920x1080.png "background.html"
+    msedge --headless=new --hide-scrollbars --window-size=1360,480  --screenshot=banner-1360x480.png      "background.html?v=banner"
+  The scene is 1920x1080; the banner is the horizontal band around the skyline.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>Shehrazad background</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #07061c; overflow: hidden; }
+  svg { display: block; width: 100vw; height: 100vh; }
+  .ar { font-family: "Aldhabi", "Arabic Typesetting", "Sakkal Majalla", serif; }
+  .en { font-family: Georgia, "Times New Roman", serif; letter-spacing: 0.42em; }
+  .tag { font-family: "Segoe UI", Arial, sans-serif; letter-spacing: 0.32em; }
+</style>
+</head>
+<body>
+<svg id="scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#05041a"/>
+      <stop offset="0.38" stop-color="#14104a"/>
+      <stop offset="0.62" stop-color="#3a1a6e"/>
+      <stop offset="0.76" stop-color="#7a2f72"/>
+      <stop offset="0.84" stop-color="#c9615e"/>
+      <stop offset="0.88" stop-color="#f0a356"/>
+    </linearGradient>
+    <radialGradient id="horizonGlow" cx="0.6" cy="0.84" r="0.55">
+      <stop offset="0" stop-color="#ffb764" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#d0567a" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#3a1a6e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffe7a8" stop-opacity="0.55"/>
+      <stop offset="0.35" stop-color="#f3c66b" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#f3c66b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="moonFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff4cf"/>
+      <stop offset="0.6" stop-color="#f6cf74"/>
+      <stop offset="1" stop-color="#d99a3c"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff1c4"/>
+      <stop offset="0.45" stop-color="#f4c766"/>
+      <stop offset="1" stop-color="#c98a2e"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f4c766" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#f4c766" stop-opacity="0.9"/>
+      <stop offset="0.55" stop-color="#ff9a8a" stop-opacity="0.85"/>
+      <stop offset="0.85" stop-color="#b98cff" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#b98cff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1240"/>
+      <stop offset="1" stop-color="#05041a"/>
+    </linearGradient>
+    <linearGradient id="patternFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="0.55" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="patternMask"><rect width="1920" height="1080" fill="url(#patternFade)"/></mask>
+    <pattern id="girih" width="120" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#f4c766" stroke-width="1.2">
+        <rect x="32" y="32" width="56" height="56"/>
+        <rect x="32" y="32" width="56" height="56" transform="rotate(45 60 60)"/>
+        <circle cx="60" cy="60" r="12"/>
+        <path d="M0 0 L32 32 M120 0 L88 32 M0 120 L32 88 M120 120 L88 88"/>
+      </g>
+    </pattern>
+    <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.75">
+      <stop offset="0.6" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textGlow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#ffb764" flood-opacity="0.55"/>
+      <feComposite in2="blur" operator="in" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <mask id="crescent">
+      <rect x="0" y="0" width="1920" height="1080" fill="#000"/>
+      <circle cx="430" cy="360" r="92" fill="#fff"/>
+      <circle cx="468" cy="336" r="80" fill="#000"/>
+    </mask>
+  </defs>
+
+  <!-- sky -->
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <rect width="1920" height="1080" fill="url(#horizonGlow)"/>
+  <rect width="1920" height="1080" fill="url(#girih)" opacity="0.07" mask="url(#patternMask)"/>
+  <g id="stars"></g>
+
+  <!-- moon -->
+  <circle cx="430" cy="360" r="260" fill="url(#moonGlow)"/>
+  <rect width="1920" height="1080" fill="url(#moonFill)" mask="url(#crescent)" filter="url(#glow)"/>
+  <g id="moonStar" transform="translate(498 352)"></g>
+
+  <!-- music ribbon -->
+  <g id="ribbons" filter="url(#glow)"></g>
+  <g id="notes"></g>
+
+  <!-- skyline -->
+  <g id="farCity" fill="#2b1650"></g>
+  <g id="midCity" fill="#1b0f38"></g>
+  <g id="nearCity" fill="#0d0820"></g>
+  <g id="windows" filter="url(#glow)"></g>
+
+  <!-- water and reflection below the skyline (only visible in the 16:9 crop) -->
+  <rect x="0" y="905" width="1920" height="175" fill="url(#water)"/>
+  <g id="reflection" opacity="0.5"></g>
+
+  <!-- title -->
+  <g id="title" text-anchor="middle">
+    <text class="ar" x="1215" y="470" font-size="250" fill="url(#gold)" filter="url(#textGlow)">شهرزاد</text>
+    <text class="en" x="1215" y="572" font-size="44" fill="#f7dfa0" opacity="0.95">SHEHRAZAD</text>
+    <text class="tag" x="1215" y="616" font-size="20" fill="#f2c9d8" opacity="0.75">MUSIC FOR YOUR VOICE CHANNELS</text>
+  </g>
+
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+</svg>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent) => {
+  const node = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+  if (parent) parent.appendChild(node);
+  return node;
+};
+// Deterministic randomness so every render is identical.
+function mulberry32(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const rnd = mulberry32(1001);
+
+// ---- stars
+const stars = document.getElementById("stars");
+for (let i = 0; i < 420; i++) {
+  const y = Math.pow(rnd(), 1.6) * 760;
+  const x = rnd() * 1920;
+  const r = 0.4 + Math.pow(rnd(), 3) * 2.0;
+  el("circle", { cx: x, cy: y, r, fill: rnd() < 0.15 ? "#ffe9b8" : "#ffffff", opacity: (0.35 + rnd() * 0.65) * (1 - y / 1000) }, stars);
+}
+function sparkle(parent, x, y, s, color = "#fff6dc", opacity = 1) {
+  const d = `M${x} ${y - s} Q${x + s * 0.12} ${y - s * 0.12} ${x + s} ${y} Q${x + s * 0.12} ${y + s * 0.12} ${x} ${y + s}
+             Q${x - s * 0.12} ${y + s * 0.12} ${x - s} ${y} Q${x - s * 0.12} ${y - s * 0.12} ${x} ${y - s}Z`;
+  el("path", { d, fill: color, opacity, filter: "url(#glow)" }, parent);
+}
+[[180, 140, 14], [760, 110, 11], [1010, 250, 9], [1580, 120, 16], [1790, 300, 10], [640, 470, 8], [1450, 330, 9], [300, 560, 7]]
+  .forEach(([x, y, s]) => sparkle(stars, x, y, s, "#fff6dc", 0.9));
+sparkle(document.getElementById("moonStar"), 0, 0, 16, "#fff1c4", 1);
+
+// ---- music ribbon: a few phase-shifted waves sweeping across above the skyline
+const ribbons = document.getElementById("ribbons");
+for (let k = 0; k < 5; k++) {
+  let d = "";
+  for (let x = 0; x <= 1920; x += 8) {
+    const t = x / 1920;
+    const env = Math.sin(Math.PI * t);
+    const y = 760 - 70 * t + env * (34 + k * 7) * Math.sin(t * Math.PI * 4.2 + k * 0.55) + k * 6;
+    d += (x === 0 ? "M" : "L") + x + " " + y.toFixed(1) + " ";
+  }
+  el("path", { d, fill: "none", stroke: "url(#ribbon)", "stroke-width": k === 0 ? 3.2 : 1.4, opacity: k === 0 ? 0.95 : 0.45 }, ribbons);
+}
+const notes = document.getElementById("notes");
+[["♪", 850, 610, 46, -12], ["♫", 1580, 520, 52, 10], ["♪", 1650, 660, 34, 6], ["♫", 590, 560, 30, -8]]
+  .forEach(([g, x, y, s, rot]) => {
+    const n = el("text", { x, y, "font-size": s, fill: "#f7d488", opacity: 0.55, transform: `rotate(${rot} ${x} ${y})`,
+      "font-family": "Segoe UI Symbol, Segoe UI, sans-serif", filter: "url(#glow)" }, notes);
+    n.textContent = g;
+  });
+
+// ---- skyline helpers (base line at y = 905)
+const BASE = 905;
+function dome(g, cx, top, w, h) {           // onion dome sitting on y = top
+  const l = cx - w / 2, r = cx + w / 2, apex = top - h;
+  el("path", { d: `M${l} ${top} C${l - w * 0.18} ${top - h * 0.45} ${cx - w * 0.16} ${top - h * 0.72} ${cx} ${apex}
+                   C${cx + w * 0.16} ${top - h * 0.72} ${r + w * 0.18} ${top - h * 0.45} ${r} ${top} Z` }, g);
+  el("rect", { x: cx - 1.6, y: apex - h * 0.28, width: 3.2, height: h * 0.3 }, g);
+  el("circle", { cx, cy: apex - h * 0.3, r: Math.max(2.5, w * 0.035) }, g);
+}
+function mosque(g, cx, w, h) {              // drum + big dome + side wings with small domes
+  const drumTop = BASE - h * 0.5;
+  el("rect", { x: cx - w * 0.9, y: BASE - h * 0.28, width: w * 1.8, height: h * 0.28 }, g);
+  el("rect", { x: cx - w / 2, y: drumTop, width: w, height: h * 0.5 }, g);
+  dome(g, cx, drumTop, w, h * 0.5);
+  dome(g, cx - w * 0.66, BASE - h * 0.28, w * 0.36, h * 0.2);
+  dome(g, cx + w * 0.66, BASE - h * 0.28, w * 0.36, h * 0.2);
+}
+function minaret(g, cx, w, h) {
+  el("rect", { x: cx - w / 2, y: BASE - h, width: w, height: h }, g);
+  el("rect", { x: cx - w * 0.85, y: BASE - h * 0.72, width: w * 1.7, height: w * 0.45 }, g);
+  el("rect", { x: cx - w * 0.75, y: BASE - h - w * 0.2, width: w * 1.5, height: w * 0.35 }, g);
+  dome(g, cx, BASE - h - w * 0.2, w * 0.95, w * 1.4);
+}
+function block(g, x, w, h) { el("rect", { x, y: BASE - h, width: w, height: h }, g); }
+
+// far layer: low, dense, hazy
+const far = document.getElementById("farCity");
+for (let x = -20; x < 1940; x += 40 + rnd() * 50) block(far, x, 50 + rnd() * 60, 50 + rnd() * 70);
+[[150, 70, 150], [560, 60, 120], [980, 90, 180], [1380, 70, 140], [1760, 80, 160]].forEach(([c, w, h]) => mosque(far, c, w, h));
+[[90, 12, 210], [700, 10, 190], [1250, 12, 230], [1650, 11, 200]].forEach(([c, w, h]) => minaret(far, c, w, h));
+
+// mid layer
+const mid = document.getElementById("midCity");
+for (let x = -30; x < 1950; x += 60 + rnd() * 70) block(mid, x, 70 + rnd() * 70, 30 + rnd() * 55);
+[[330, 110, 200], [1080, 130, 230], [1600, 100, 190]].forEach(([c, w, h]) => mosque(mid, c, w, h));
+[[460, 16, 270], [880, 14, 250], [1520, 15, 250], [1850, 14, 240]].forEach(([c, w, h]) => minaret(mid, c, w, h));
+
+// near layer: the grand mosque and two tall minarets frame the title
+const near = document.getElementById("nearCity");
+el("rect", { x: 0, y: BASE - 26, width: 1920, height: 26 }, near);
+for (let x = -40; x < 1960; x += 90 + rnd() * 90) block(near, x, 90 + rnd() * 80, 20 + rnd() * 40);
+mosque(near, 700, 170, 300);
+mosque(near, 1880, 150, 260);
+minaret(near, 470, 22, 360);
+minaret(near, 930, 22, 360);
+minaret(near, 1720, 20, 320);
+mosque(near, 120, 120, 210);
+
+// warm arched windows
+const win = document.getElementById("windows");
+function archWindow(x, y, w, h) {
+  el("path", { d: `M${x} ${y + h} L${x} ${y + w / 2} A${w / 2} ${w / 2} 0 0 1 ${x + w} ${y + w / 2} L${x + w} ${y + h} Z`,
+               fill: "#ffc46b", opacity: 0.85 }, win);
+}
+[[668, 760], [692, 760], [716, 760], [590, 826], [790, 826], [1858, 800], [1882, 800], [100, 840], [130, 840]]
+  .forEach(([x, y]) => archWindow(x, y, 14, 26));
+for (let i = 0; i < 26; i++) {
+  const x = rnd() * 1900, y = BASE - 12 - rnd() * 30;
+  el("rect", { x, y, width: 4, height: 6, fill: "#ffcf80", opacity: 0.5 + rnd() * 0.4 }, win);
+}
+
+// reflection: shimmering streaks under the horizon glow and the moon
+const refl = document.getElementById("reflection");
+for (let i = 0; i < 70; i++) {
+  const y = 915 + Math.pow(rnd(), 1.3) * 150;
+  const cx = (rnd() < 0.7 ? 1150 : 430) + (rnd() - 0.5) * 520 * (1 - (y - 905) / 260);
+  const w = 20 + rnd() * 140 * (1 - (y - 905) / 200);
+  el("rect", { x: cx - w / 2, y, width: Math.max(8, w), height: 1.6 + rnd() * 1.6, rx: 1, fill: rnd() < 0.5 ? "#ffb764" : "#f08aa0", opacity: 0.25 + rnd() * 0.5 }, refl);
+}
+
+// banner crop: the band around the title and skyline, Discord's 17:6 banner ratio
+if (new URLSearchParams(location.search).get("v") === "banner") {
+  document.getElementById("scene").setAttribute("viewBox", "0 232 1920 678");
+}
+</script>
+</body>
+</html>
