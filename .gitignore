@@ -68,9 +68,6 @@ typings/
 .next
 
 # Python environment directories
-Include/
-Lib/
-Scripts/
 venv/
 
 # Bytecode
