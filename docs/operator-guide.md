@@ -18,20 +18,24 @@ Migrations run automatically at startup (`schema_migrations` table). Run them ma
 
 ### Current VPS (216.173.77.168)
 
-v2 has run in production since 2026-11-10 from `/opt/shehrazad` (image `shehrazad:2.0.0`,
-container `shehrazad-shehrazad-1`). Its `.env` (mode 600) holds `DISCORD_TOKEN`, `APPLICATION_ID`,
-`ENVIRONMENT=production`, `LOG_JSON=true` and `IMAGE_TAG`. Prefix commands were switched off on
-2026-11-10 (`LEGACY_PREFIX_COMMANDS=false`; the setting is ignored from 2.0.1, which is slash-only). The token must be in `.env`: the container runs as
-uid 10001 and cannot read the root-only `properties.properties`. Lifetime premium grants #1–#3
-cover the owner's three servers.
+Production runs **2.1.0** (since 2026-11-10) from `/opt/shehrazad`: image `shehrazad:2.1.0`, container
+`shehrazad-shehrazad-1`. Its `.env` (mode 600) holds `DISCORD_TOKEN`, `APPLICATION_ID`,
+`ENVIRONMENT=production`, `LOG_JSON=true`, `IMAGE_TAG`, `OWNER_IDS` (the owner's user ID) and
+`NOVELTY_GUILD_IDS` (the owner's three servers). The token must be in `.env`: the container runs as
+uid 10001 and cannot read the root-only `properties.properties`. Lifetime premium grants #1-#3 cover
+the owner's three servers.
 
-v1 is kept at `/opt/shehrazad.v1` (image `shehrazad-shehrazad:latest`), and the database as it was
-before v2's first start is at `/opt/shehrazad-v2-prestart.db`. Rollback to v1:
+Updating: `git archive -o release.tgz HEAD -- . ':!cookies.txt' ':!assets'`, upload it, then run
+[`scripts/update_release.sh`](../scripts/update_release.sh) `release.tgz <new tag>` on the server (a copy is in `/root/update_v2.sh`). It backs up the current source to
+`/opt/shehrazad-src-<old tag>.tgz` and replaces the source (keeping `.env`, `data/` and
+`properties.properties`). It then builds and starts the new image and waits for `/readyz`. If the new
+version doesn't become ready, it restores the previous source and image on its own. Previous images
+stay in Docker, so a manual rollback is setting `IMAGE_TAG` back and running `docker compose up -d`.
+
+v1 is still kept at `/opt/shehrazad.v1` (image `shehrazad-shehrazad:latest`), and the database as it
+was before v2's first start is at `/opt/shehrazad-v2-prestart.db`. Rollback to v1:
 `cd /opt/shehrazad && docker compose down && cd /opt && mv shehrazad shehrazad.v2 &&
 mv shehrazad.v1 shehrazad && cd shehrazad && docker compose up -d`. v1 ignores v2's data.
-
-Updating v2: upload a `git archive HEAD` tarball over `/opt/shehrazad` (keep `.env`, `data/`,
-`properties.properties`), bump `IMAGE_TAG`, then `docker compose up -d --build`.
 
 ## Configuration
 
