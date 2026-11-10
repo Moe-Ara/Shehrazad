@@ -21,7 +21,7 @@ Migrations run automatically at startup (`schema_migrations` table). Run them ma
 Production runs **2.1.0** (since 2026-11-10) from `/opt/shehrazad`: image `shehrazad:2.1.0`, container
 `shehrazad-shehrazad-1`. Its `.env` (mode 600) holds `DISCORD_TOKEN`, `APPLICATION_ID`,
 `ENVIRONMENT=production`, `LOG_JSON=true`, `IMAGE_TAG`, `OWNER_IDS` (the owner's user ID) and
-`NOVELTY_GUILD_IDS` (the owner's three servers). The token must be in `.env`: the container runs as
+`NOVELTY_GUILD_IDS` (the owner's three servers). Add `TOPGG_TOKEN` to report the server count to top.gg. The token must be in `.env`: the container runs as
 uid 10001 and cannot read the root-only `properties.properties`. Lifetime premium grants #1-#3 cover
 the owner's three servers.
 

@@ -41,6 +41,7 @@ from .store import (
     SettingsRepo,
     SnapshotRepo,
 )
+from .topgg import TopggReporter
 
 log = logging.getLogger(__name__)
 
@@ -161,6 +162,7 @@ class ShehrazadBot(commands.Bot):
         )
         self.service = MusicService(self)
         self.anime = AnimeClient()
+        self.topgg = TopggReporter(config.topgg_token)
         self.health = HealthServer(self, config.health_host, config.health_port)
         self.gateway_down_since: float | None = None
         self.started_monotonic = time.monotonic()
@@ -198,6 +200,8 @@ class ShehrazadBot(commands.Bot):
         await self.health.start()
         self._spawn(self._every(1800, self.reconcile_entitlements, initial_delay=30), "reconcile")
         self._spawn(self._every(60, self._refresh_runtime_state), "refresh")
+        if self.topgg.enabled:
+            self._spawn(self._every(1800, self.post_topgg_stats, initial_delay=120), "topgg")
         self._spawn(self._every(86400, self.purge_expired_data, initial_delay=300), "purge")
         if self.config.sync_commands:
             await self.sync_commands()
@@ -283,6 +287,10 @@ class ShehrazadBot(commands.Bot):
         await self.premium.refresh_grants()
         self.metrics.premium_guilds.set(len(self.premium.premium_guild_ids()))
         self.metrics.guilds.set(len(self.guilds))
+
+    async def post_topgg_stats(self) -> None:
+        if self.is_ready():
+            await self.topgg.post(len(self.guilds))
 
     async def purge_expired_data(self) -> None:
         counts = await self.store.rights.purge(

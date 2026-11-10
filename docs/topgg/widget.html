@@ -1,13 +1,41 @@
 <!--
-  Top.gg widgets for Shehrazad. Paste on a website, a blog, or the GitHub README.
-  Top.gg draws the images itself and keeps the numbers up to date (servers, votes, owner).
-  Large card: 300 x 150. Small badges: 123 x 20.
+  Top.gg widgets for Shehrazad. Paste ONE of the options below into a website or blog.
+
+  Why not top.gg's own large widget? It draws the bot name from top.gg's stored copy, which is
+  still the old Arabic name, and its font can't render Arabic, so the name shows as boxes.
+  Discord already has the English name "Shehrazad"; once top.gg refreshes its copy, the official
+  large widget works too (option C).
+
+  The numbers come from top.gg and update by themselves. The server count stays 0 until the bot
+  reports it, which happens automatically when TOPGG_TOKEN is set (see README.md).
 -->
-<a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener">
-  <img src="https://top.gg/api/v1/widgets/large/discord/bot/892731315928047637" width="300" height="150" alt="Shehrazad on Top.gg">
-</a>
-<p>
-  <a href="https://top.gg/bot/892731315928047637/vote" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/votes/discord/bot/892731315928047637" width="123" height="20" alt="Top.gg votes"></a>
-  <a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/social/discord/bot/892731315928047637" width="123" height="20" alt="Top.gg"></a>
-  <a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/owner/discord/bot/892731315928047637" width="123" height="20" alt="Top.gg owner"></a>
-</p>
+
+<!-- Option A: Shehrazad card with live top.gg badges (inline styles only, works on any website) -->
+<div style="width:340px;max-width:100%;border-radius:16px;overflow:hidden;background:#100c2c;border:1px solid rgba(244,199,102,.25);box-shadow:0 8px 28px rgba(0,0,0,.35);font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;color:#eee8ff;text-align:left">
+  <a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener" style="display:block;line-height:0">
+    <img src="https://raw.githubusercontent.com/Moe-Ara/Shehrazad/commercial-readiness/assets/banner-1360x480.png" alt="Shehrazad" width="340" height="120" style="display:block;width:100%;height:120px;object-fit:cover;border:0">
+  </a>
+  <div style="padding:0 16px 16px">
+    <div style="display:flex;align-items:flex-end;gap:10px;margin-top:-24px">
+      <img src="https://cdn.discordapp.com/avatars/892731315928047637/90284ef651acccd54dd82b9447298258.png?size=128" alt="" width="56" height="56" style="width:56px;height:56px;border-radius:50%;border:4px solid #100c2c;background:#100c2c;flex:none">
+      <a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener" style="font-size:19px;font-weight:700;color:#ffe2a0;text-decoration:none;padding-bottom:6px">Shehrazad</a>
+    </div>
+    <div style="font-size:13px;line-height:1.5;color:#b9aedb;margin:8px 0 12px">Music for your voice channels: YouTube &amp; SoundCloud, one player panel, slash commands and cute anime GIFs.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;line-height:0">
+      <a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/social/discord/bot/892731315928047637" alt="Servers on Top.gg" height="20" style="height:20px;border:0"></a>
+      <a href="https://top.gg/bot/892731315928047637/vote" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/votes/discord/bot/892731315928047637" alt="Votes on Top.gg" height="20" style="height:20px;border:0"></a>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a href="https://discord.com/oauth2/authorize?client_id=892731315928047637&amp;permissions=3230720&amp;scope=bot+applications.commands" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:9px 0;border-radius:999px;background:linear-gradient(135deg,#ffe2a0,#f4c766 45%,#d99a3c);color:#2a1606;font-weight:700;font-size:14px;text-decoration:none">Add to Discord</a>
+      <a href="https://top.gg/bot/892731315928047637/vote" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:9px 0;border-radius:999px;border:1px solid rgba(244,199,102,.35);color:#eee8ff;font-weight:600;font-size:14px;text-decoration:none">Vote on Top.gg</a>
+    </div>
+  </div>
+</div>
+
+<!-- Option B: just the small live badges (they don't show the name, so they look right today) -->
+<a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/social/discord/bot/892731315928047637" alt="Servers on Top.gg" height="20"></a>
+<a href="https://top.gg/bot/892731315928047637/vote" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/votes/discord/bot/892731315928047637" alt="Votes on Top.gg" height="20"></a>
+<a href="https://top.gg/bot/892731315928047637" target="_blank" rel="noopener"><img src="https://top.gg/api/v1/widgets/small/owner/discord/bot/892731315928047637" alt="Owner on Top.gg" height="20"></a>
+
+<!-- Option C: top.gg's official large widget (shows the name correctly once top.gg has the English name) -->
+<a href="https://top.gg/bot/892731315928047637"><img src="https://top.gg/api/widget/892731315928047637.svg" alt="Shehrazad on Top.gg"></a>

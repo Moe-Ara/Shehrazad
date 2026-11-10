@@ -26,10 +26,22 @@ Everything needed for the bot's page on top.gg. Bot ID / application ID: `892731
 
 ## Widget
 
-[`widget.html`](widget.html) has the HTML for top.gg's widgets: the large card (servers, votes, owner)
-and three small badges. Top.gg keeps the numbers current. The repo README shows the badges in Markdown.
-The widget shows the bot's Discord username, so keep it in Latin letters ("Shehrazad"); top.gg's widget
-font can't draw Arabic and showed empty boxes.
+[`widget.html`](widget.html) has three options:
+
+- **A: Shehrazad card (recommended).** The banner, avatar, English name, live top.gg server and vote
+  badges, plus Add to Discord and Vote buttons. It uses inline styles only, so it works pasted into
+  any website.
+- **B: small badges only.** Servers, votes and owner. They don't show the bot name, so they look
+  right today. The repo README uses these.
+- **C: top.gg's own large widget.** It draws the name from top.gg's stored copy, which is still the old
+  Arabic name, and top.gg's font can't render Arabic, so it shows boxes. Discord already has
+  "Shehrazad" for both the bot and the application. Top.gg updates its copy on its own schedule,
+  and I couldn't find a documented way to force it. If the dashboard still shows the Arabic name
+  after a day or two, ask top.gg support to resync the bot from Discord.
+
+**Server count:** widgets show 0 servers until the bot reports its count. Put the project token from
+the top.gg dashboard (Integrations & API) in the VPS `.env` as `TOPGG_TOKEN=...` and restart. The bot
+then posts its server count every 30 minutes (`PATCH /api/v1/projects/@me/metrics`).
 
 ## Commands (JSON)
 

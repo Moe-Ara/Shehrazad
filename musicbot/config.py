@@ -27,6 +27,7 @@ class ConfigError(Exception):
 @dataclass(frozen=True)
 class Settings:
     token: str = field(repr=False)
+    topgg_token: str | None = field(default=None, repr=False)  # posts the server count to top.gg
     environment: str = "development"
     database_path: Path = Path("data/shehrazad.db")
     log_level: str = "INFO"
@@ -230,5 +231,8 @@ def load_settings(
 
     if errors:
         raise ConfigError("Invalid configuration:\n  - " + "\n  - ".join(errors))
+
+    if (raw := get("TOPGG_TOKEN")) is not None:
+        kwargs["topgg_token"] = raw.strip()
 
     return Settings(token=token or "", **kwargs)  # type: ignore[arg-type]
