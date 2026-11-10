@@ -35,6 +35,29 @@ async def test_all_cogs_and_commands_load(bot):
     assert bot.get_command("l3be") is not None and bot.get_command("ro7e") is not None
 
 
+async def test_prefix_commands_cover_every_playback_and_queue_slash_command(bot):
+    slash_only = {"library", "settings", "setup", "premium", "about", "invite", "support", "status",
+                  "privacy", "feedback"}  # pickers/modals/admin flows that need interactions
+    slash = {c.name for c in bot.tree.get_commands()} - slash_only
+    prefix = {c.name for c in bot.commands}
+    assert slash <= prefix, sorted(slash - prefix)
+    names = [alias for c in bot.commands for alias in (c.name, *c.aliases)]
+    assert len(names) == len(set(names)), "duplicate prefix command alias"
+
+
+async def test_prefix_help_lists_every_command(bot):
+    from musicbot.cogs.legacy import HELP_ORDER
+
+    cog = bot.get_cog("Legacy")
+    listed = {name for name, _key in HELP_ORDER}
+    assert listed == {c.name for c in bot.commands} - {"babe"}
+    for locale in ("en", "ar"):
+        embed = cog.help_embed(locale)
+        assert len(embed.description) < 4096
+        assert "`!play <song name or link>`, `!p`, `!l3be`" in embed.description
+        assert "cmd." not in embed.description  # every help text resolved
+
+
 async def test_command_definitions_are_valid_for_discord(bot):
     payload = [c.to_dict(bot.tree) for c in bot.tree.get_commands()]
     json.dumps(payload)  # serialisable, as sent to Discord

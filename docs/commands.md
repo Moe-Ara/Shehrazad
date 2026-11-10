@@ -54,11 +54,29 @@ private (ephemeral). Controls require being in the bot's voice channel.
 Back · Pause/Resume · Skip · Stop · Repeat · Shuffle · Vol − · Vol + · Queue · Like.
 Buttons on an old panel are rejected with a pointer to `/nowplaying` and then disabled.
 
-## Legacy prefix commands (optional)
-Enabled with `LEGACY_PREFIX_COMMANDS=true` (needs the Message Content intent):
-`!play/!p/!l3be`, `!playlist/!pl`, `!shuffleplay/!sp`, `!join/!j/!connect/!t3e`,
-`!leave/!l/!disconnect/!ro7e`, `!skip/!s`, `!nowplaying/!np`, `!volume/!vol/!v`, `!queue/!q`,
-`!pause`, `!resume`, `!babe`.
+## Prefix commands (optional)
+Enabled with `LEGACY_PREFIX_COMMANDS=true` (needs the Message Content intent; on in production).
+Every playback and queue slash command has a `!` twin with the same permissions and limits;
+`!help` lists them. Setup, settings, library, premium and privacy stay slash-only (they use pickers).
+
+| Command | Aliases |
+|---|---|
+| `!play <song or link>` | `!p`, `!l3be` |
+| `!playnext <song or link>` | `!pn` |
+| `!playlist <link>` / `!shuffleplay <link>` | `!pl` / `!sp` |
+| `!pause` / `!resume` | — / `!unpause`, `!continue` |
+| `!skip` / `!previous` | `!s` / `!prev`, `!back`, `!b` |
+| `!seek <1:30>` | — |
+| `!volume [1-150]` | `!vol`, `!v` |
+| `!loop [off\|track\|queue]` | `!repeat` (no argument cycles) |
+| `!nowplaying` | `!np` |
+| `!queue [page]` | `!q` |
+| `!remove <pos>` / `!move <from> <to>` / `!jump <pos>` | `!rm` / `!mv` / `!skipto` |
+| `!shuffle` / `!clear` | `!mix` / `!cl` |
+| `!like` / `!history` / `!restore` | `!fav` / `!recent` / — |
+| `!join` | `!j`, `!connect`, `!t3e` |
+| `!leave` / `!stop` | `!l`, `!disconnect`, `!ro7e` / — |
+| `!help` | `!h`, `!commands` |
 
 ¹ Controllers: everyone, unless DJ mode is on — then DJs (DJ role or Manage Server) and the person
 who requested the current track.
