@@ -1,4 +1,4 @@
-"""MusicService: the behaviour behind every command, button and legacy prefix.
+"""MusicService: the behaviour behind every slash command and button.
 
 Each method takes an `Actor` (who / where / which language / which settings),
 enforces authorization server-side and returns a `Reply`, or raises

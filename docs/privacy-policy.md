@@ -19,8 +19,7 @@
 | Subscription status (Discord entitlement IDs, SKU, dates) | To unlock premium | While relevant to the subscription |
 | Technical logs (server ID, command name, error type, correlation ID) | Reliability and security | [log rotation: ~5 × 10 MB] |
 
-We **do not** collect message content (unless an operator enables legacy prefix commands, in which
-case messages starting with the prefix are processed in memory and not stored), voice audio, e-mail
+We **do not** collect message content (the bot has no access to it), voice audio, e-mail
 addresses, payment details (handled by Discord), or profile information beyond user IDs.
 
 ## Legal bases (GDPR)

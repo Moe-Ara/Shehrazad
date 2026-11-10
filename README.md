@@ -12,7 +12,7 @@ Premium Apps. Replies in English or Arabic.
 - Vote-skip, DJ role, DJ mode, request permissions, `/setup` wizard with permission diagnostics
 - Favorites, recently played, saved server playlists ✨, 24/7 ✨, queue restore ✨
 - `/help`, `/premium`, `/status`, `/privacy` (export/delete), `/feedback`, `/invite`, `/support`, `/about`
-- Optional legacy `!` commands (`!p`, `!l3be`, `!t3e`, `!ro7e`, …)
+- Slash commands only: no prefix commands and no Message Content intent
 
 Full list: [docs/commands.md](docs/commands.md). Tiers: [docs/premium-feature-matrix.md](docs/premium-feature-matrix.md).
 

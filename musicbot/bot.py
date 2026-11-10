@@ -124,11 +124,10 @@ class ShehrazadBot(commands.Bot):
         intents.guilds = True
         intents.voice_states = True
         intents.guild_messages = True  # message events (no content) keep the panel near the bottom
-        if config.legacy_prefix_commands:
-            intents.message_content = True  # privileged; required only for legacy ! commands
-        prefix = commands.when_mentioned_or(config.legacy_prefix) if config.legacy_prefix_commands else commands.when_mentioned
+        # Slash commands only: no Message Content intent, no prefix commands. commands.Bot needs a
+        # prefix argument, but on_message never processes commands, so it is never used.
         super().__init__(
-            command_prefix=prefix,
+            command_prefix=commands.when_mentioned,
             intents=intents,
             tree_cls=Tree,
             help_command=None,
@@ -184,8 +183,6 @@ class ShehrazadBot(commands.Bot):
         )
         for name in COGS:
             await self.load_extension(name)
-        if self.config.legacy_prefix_commands:
-            await self.load_extension("musicbot.cogs.legacy")
         from .cogs.music import Music
 
         music = self.get_cog("Music")
@@ -309,9 +306,9 @@ class ShehrazadBot(commands.Bot):
         await self.manager.on_voice_state_update(member, before, after)
 
     async def on_message(self, message: discord.Message) -> None:
+        # Only keeps the player panel near the bottom of busy channels. Never runs commands:
+        # the bot answers slash commands (and its own buttons) only.
         self.manager.note_message(message)
-        if self.config.legacy_prefix_commands and not message.author.bot:
-            await self.process_commands(message)
 
     async def on_entitlement_create(self, entitlement: discord.Entitlement) -> None:
         changed = await self.premium.apply(entitlement, "gateway")

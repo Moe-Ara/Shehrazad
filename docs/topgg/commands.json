@@ -1,0 +1,802 @@
+[
+  {
+    "name": "about",
+    "description": "About this bot.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "clear",
+    "description": "Remove every upcoming track (keeps the current one).",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "feedback",
+    "description": "Report a bug or suggest an idea.",
+    "type": 1,
+    "options": [
+      {
+        "type": 3,
+        "name": "kind",
+        "description": "…",
+        "required": true,
+        "choices": [
+          {
+            "name": "Bug report",
+            "value": "bug"
+          },
+          {
+            "name": "Idea",
+            "value": "idea"
+          },
+          {
+            "name": "Other",
+            "value": "other"
+          }
+        ]
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "help",
+    "description": "How to use the bot.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "history",
+    "description": "Recently played in this server — pick some to queue again.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "invite",
+    "description": "Add the bot to another server.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "join",
+    "description": "Join your voice channel.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "jump",
+    "description": "Skip straight to a track in the queue.",
+    "type": 1,
+    "options": [
+      {
+        "type": 4,
+        "name": "position",
+        "description": "Position in the queue (see /queue)",
+        "required": true,
+        "min_value": 1,
+        "max_value": 5000
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "leave",
+    "description": "Leave the voice channel and end the session.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "library",
+    "description": "Saved playlists and favorites",
+    "type": 1,
+    "options": [
+      {
+        "name": "save",
+        "description": "Save the current queue as a server playlist (Premium).",
+        "type": 1,
+        "options": [
+          {
+            "type": 3,
+            "name": "name",
+            "description": "Playlist name",
+            "required": true,
+            "min_length": 1,
+            "max_length": 50
+          }
+        ]
+      },
+      {
+        "name": "load",
+        "description": "Queue a saved server playlist (Premium).",
+        "type": 1,
+        "options": [
+          {
+            "type": 3,
+            "name": "name",
+            "description": "Playlist name",
+            "required": true,
+            "autocomplete": true
+          },
+          {
+            "type": 5,
+            "name": "shuffle",
+            "description": "Shuffle before queueing",
+            "required": false
+          }
+        ]
+      },
+      {
+        "name": "list",
+        "description": "List this server's saved playlists.",
+        "type": 1,
+        "options": []
+      },
+      {
+        "name": "view",
+        "description": "Show the tracks in a saved playlist.",
+        "type": 1,
+        "options": [
+          {
+            "type": 3,
+            "name": "name",
+            "description": "…",
+            "required": true,
+            "autocomplete": true
+          }
+        ]
+      },
+      {
+        "name": "delete",
+        "description": "Delete a saved playlist.",
+        "type": 1,
+        "options": [
+          {
+            "type": 3,
+            "name": "name",
+            "description": "…",
+            "required": true,
+            "autocomplete": true
+          }
+        ]
+      },
+      {
+        "name": "favorites",
+        "description": "Your favorite tracks — pick some to queue.",
+        "type": 1,
+        "options": []
+      },
+      {
+        "name": "like",
+        "description": "Add the current track to your favorites.",
+        "type": 1,
+        "options": []
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "loop",
+    "description": "Repeat the track, the whole queue, or turn repeat off.",
+    "type": 1,
+    "options": [
+      {
+        "type": 3,
+        "name": "mode",
+        "description": "Leave empty to cycle through the modes",
+        "required": false,
+        "choices": [
+          {
+            "name": "Off",
+            "value": "off"
+          },
+          {
+            "name": "Current track",
+            "value": "track"
+          },
+          {
+            "name": "Whole queue",
+            "value": "queue"
+          }
+        ]
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "move",
+    "description": "Move a track to another position in the queue.",
+    "type": 1,
+    "options": [
+      {
+        "type": 4,
+        "name": "source",
+        "description": "Current position",
+        "required": true,
+        "min_value": 1,
+        "max_value": 5000
+      },
+      {
+        "type": 4,
+        "name": "target",
+        "description": "New position",
+        "required": true,
+        "min_value": 1,
+        "max_value": 5000
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "nowplaying",
+    "description": "Show what's playing right now.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "pause",
+    "description": "Pause playback.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "play",
+    "description": "Play a song or playlist by name or link.",
+    "type": 1,
+    "options": [
+      {
+        "type": 3,
+        "name": "query",
+        "description": "Song name, YouTube/SoundCloud link or playlist link",
+        "required": false,
+        "autocomplete": true
+      },
+      {
+        "type": 11,
+        "name": "file",
+        "description": "Or upload an audio file to play",
+        "required": false
+      },
+      {
+        "type": 5,
+        "name": "next",
+        "description": "Put it at the front of the queue",
+        "required": false
+      },
+      {
+        "type": 5,
+        "name": "shuffle",
+        "description": "Shuffle the tracks of a playlist before queueing",
+        "required": false
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "playlist",
+    "description": "Queue every track from a playlist or album link.",
+    "type": 1,
+    "options": [
+      {
+        "type": 3,
+        "name": "url",
+        "description": "Playlist or album link",
+        "required": true
+      },
+      {
+        "type": 5,
+        "name": "shuffle",
+        "description": "Shuffle the tracks before queueing",
+        "required": false
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "premium",
+    "description": "See Premium benefits and this server's subscription status.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "previous",
+    "description": "Go back to the previous track.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "privacy",
+    "description": "What data the bot stores, and how to export or delete it.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "queue",
+    "description": "Show the queue.",
+    "type": 1,
+    "options": [
+      {
+        "type": 4,
+        "name": "page",
+        "description": "Page number",
+        "required": false,
+        "min_value": 1,
+        "max_value": 500
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "remove",
+    "description": "Remove a track from the queue.",
+    "type": 1,
+    "options": [
+      {
+        "type": 4,
+        "name": "position",
+        "description": "Position in the queue (see /queue)",
+        "required": true,
+        "min_value": 1,
+        "max_value": 5000
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "restore",
+    "description": "Restore the last saved queue (Premium).",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "resume",
+    "description": "Resume playback.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "seek",
+    "description": "Jump to a time in the current track, e.g. 1:30.",
+    "type": 1,
+    "options": [
+      {
+        "type": 3,
+        "name": "time",
+        "description": "Position like 1:30, 90 or 1m30s",
+        "required": true
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "settings",
+    "description": "Configure the bot for this server",
+    "type": 1,
+    "options": [
+      {
+        "name": "view",
+        "description": "Show this server's settings.",
+        "type": 1,
+        "options": []
+      },
+      {
+        "name": "music-channel",
+        "description": "Where the player panel is posted (empty = where /play is used).",
+        "type": 1,
+        "options": [
+          {
+            "type": 7,
+            "name": "channel",
+            "description": "…",
+            "required": false,
+            "channel_types": [
+              0,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "name": "dj-role",
+        "description": "Role that can always control playback (empty = none).",
+        "type": 1,
+        "options": [
+          {
+            "type": 8,
+            "name": "role",
+            "description": "…",
+            "required": false
+          }
+        ]
+      },
+      {
+        "name": "dj-mode",
+        "description": "Only DJs (and requesters of the current track) can control playback.",
+        "type": 1,
+        "options": [
+          {
+            "type": 5,
+            "name": "enabled",
+            "description": "…",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "requests",
+        "description": "Who can add songs.",
+        "type": 1,
+        "options": [
+          {
+            "type": 3,
+            "name": "who",
+            "description": "…",
+            "required": true,
+            "choices": [
+              {
+                "name": "Everyone",
+                "value": "everyone"
+              },
+              {
+                "name": "DJs only",
+                "value": "dj"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "vote-skip",
+        "description": "Let listeners vote to skip, and how many must agree.",
+        "type": 1,
+        "options": [
+          {
+            "type": 5,
+            "name": "enabled",
+            "description": "Turn vote-skip on or off",
+            "required": true
+          },
+          {
+            "type": 4,
+            "name": "percent",
+            "description": "Share of listeners needed (10-100)",
+            "required": false,
+            "min_value": 10,
+            "max_value": 100
+          }
+        ]
+      },
+      {
+        "name": "default-volume",
+        "description": "Volume new sessions start at.",
+        "type": 1,
+        "options": [
+          {
+            "type": 4,
+            "name": "percent",
+            "description": "…",
+            "required": true,
+            "min_value": 1,
+            "max_value": 150
+          }
+        ]
+      },
+      {
+        "name": "language",
+        "description": "Language of the bot's replies.",
+        "type": 1,
+        "options": [
+          {
+            "type": 3,
+            "name": "language",
+            "description": "…",
+            "required": true,
+            "choices": [
+              {
+                "name": "Automatic (follow Discord)",
+                "value": "auto"
+              },
+              {
+                "name": "English",
+                "value": "en"
+              },
+              {
+                "name": "العربية (Arabic)",
+                "value": "ar"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "idle-timeout",
+        "description": "Minutes to wait with an empty queue before leaving.",
+        "type": 1,
+        "options": [
+          {
+            "type": 4,
+            "name": "minutes",
+            "description": "…",
+            "required": true,
+            "min_value": 1,
+            "max_value": 60
+          }
+        ]
+      },
+      {
+        "name": "stay-connected",
+        "description": "24/7: stay in a voice channel even when the queue ends (Premium).",
+        "type": 1,
+        "options": [
+          {
+            "type": 5,
+            "name": "enabled",
+            "description": "Turn 24/7 on or off",
+            "required": true
+          },
+          {
+            "type": 7,
+            "name": "channel",
+            "description": "Voice channel to stay in (default: your current one)",
+            "required": false,
+            "channel_types": [
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "name": "reset",
+        "description": "Reset all settings to their defaults.",
+        "type": 1,
+        "options": []
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "setup",
+    "description": "Set up the bot for this server in under a minute.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": 32,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "shuffle",
+    "description": "Shuffle the upcoming tracks.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "skip",
+    "description": "Skip the current track (starts a vote if needed).",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "status",
+    "description": "Bot health and this server's player status.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "stop",
+    "description": "Stop playback, clear the queue and leave the voice channel.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  },
+  {
+    "name": "support",
+    "description": "Get help from the team behind the bot.",
+    "type": 1,
+    "options": [],
+    "nsfw": false,
+    "dm_permission": true,
+    "default_member_permissions": null,
+    "contexts": null,
+    "integration_types": null
+  },
+  {
+    "name": "volume",
+    "description": "Show or set the volume (1-150%).",
+    "type": 1,
+    "options": [
+      {
+        "type": 4,
+        "name": "level",
+        "description": "Volume in percent",
+        "required": false,
+        "min_value": 1,
+        "max_value": 150
+      }
+    ],
+    "nsfw": false,
+    "dm_permission": false,
+    "default_member_permissions": null,
+    "contexts": [
+      0
+    ],
+    "integration_types": null
+  }
+]

@@ -1,6 +1,7 @@
 """Boot the real bot object offline (no Discord login) and inspect its wiring."""
 
 import json
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from discord import app_commands
@@ -11,8 +12,7 @@ from musicbot.config import Settings
 
 @pytest.fixture
 async def bot(tmp_path):
-    config = Settings(token="x", database_path=tmp_path / "bot.db", health_port=0, sync_commands=False,
-                      legacy_prefix_commands=True)
+    config = Settings(token="x", database_path=tmp_path / "bot.db", health_port=0, sync_commands=False)
     instance = ShehrazadBot(config)
     await instance.setup_hook()
     yield instance
@@ -30,32 +30,20 @@ async def test_all_cogs_and_commands_load(bot):
     }
     assert expected <= names
     assert len(bot.tree.get_commands()) <= 100  # Discord's global command limit
-    legacy = {c.name for c in bot.commands}
-    assert {"play", "join", "leave", "skip", "nowplaying", "volume", "playlist", "shuffleplay", "babe"} <= legacy
-    assert bot.get_command("l3be") is not None and bot.get_command("ro7e") is not None
 
 
-async def test_prefix_commands_cover_every_playback_and_queue_slash_command(bot):
-    slash_only = {"library", "settings", "setup", "premium", "about", "invite", "support", "status",
-                  "privacy", "feedback"}  # pickers/modals/admin flows that need interactions
-    slash = {c.name for c in bot.tree.get_commands()} - slash_only
-    prefix = {c.name for c in bot.commands}
-    assert slash <= prefix, sorted(slash - prefix)
-    names = [alias for c in bot.commands for alias in (c.name, *c.aliases)]
-    assert len(names) == len(set(names)), "duplicate prefix command alias"
-
-
-async def test_prefix_help_lists_every_command(bot):
-    from musicbot.cogs.legacy import HELP_ORDER
-
-    cog = bot.get_cog("Legacy")
-    listed = {name for name, _key in HELP_ORDER}
-    assert listed == {c.name for c in bot.commands} - {"babe"}
-    for locale in ("en", "ar"):
-        embed = cog.help_embed(locale)
-        assert len(embed.description) < 4096
-        assert "`!play <song name or link>`, `!p`, `!l3be`" in embed.description
-        assert "cmd." not in embed.description  # every help text resolved
+async def test_slash_commands_only(bot):
+    # No prefix/text commands are registered, and messages never reach the command processor.
+    assert list(bot.commands) == []
+    assert not bot.intents.message_content
+    assert bot.intents.voice_states and bot.intents.guilds and not bot.intents.members
+    bot.process_commands = AsyncMock()
+    bot.manager.note_message = MagicMock()
+    message = MagicMock(content="!play something")
+    message.author.bot = False
+    await bot.on_message(message)
+    bot.process_commands.assert_not_awaited()
+    bot.manager.note_message.assert_called_once_with(message)
 
 
 async def test_command_definitions_are_valid_for_discord(bot):
@@ -73,14 +61,6 @@ async def test_panel_view_registered_and_services_wired(bot):
     assert bot.persistent_views, "panel buttons must survive restarts"
     assert await bot.db.ping()
     assert bot.premium.tier(1).value == "free"
-
-
-async def test_message_content_intent_only_with_legacy(tmp_path):
-    plain = ShehrazadBot(Settings(token="x", database_path=tmp_path / "a.db", health_port=0))
-    assert not plain.intents.message_content
-    assert plain.intents.voice_states and plain.intents.guilds and not plain.intents.members
-    legacy = ShehrazadBot(Settings(token="x", database_path=tmp_path / "b.db", health_port=0, legacy_prefix_commands=True))
-    assert legacy.intents.message_content
 
 
 async def test_health_endpoints(bot):

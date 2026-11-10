@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 import signal
 import sys
 
@@ -39,10 +40,7 @@ async def _serve(config: Settings) -> int:
             log.error("Discord rejected the bot token. Check DISCORD_TOKEN.")
             return 1
         except discord.PrivilegedIntentsRequired:
-            log.error(
-                "LEGACY_PREFIX_COMMANDS needs the Message Content intent: enable it in the "
-                "Developer Portal (Bot → Privileged Gateway Intents) or turn legacy commands off."
-            )
+            log.error("Discord refused a privileged intent. The bot needs none; check the Developer Portal.")
             return 1
         finally:
             stopper.cancel()
@@ -58,6 +56,8 @@ def main() -> None:
         raise SystemExit(2) from None
     setup_logging(config.log_level, config.log_json)
     log.info("starting (environment=%s)", config.environment)
+    if os.environ.get("LEGACY_PREFIX_COMMANDS", "").strip().lower() in ("1", "true", "yes", "on"):
+        log.warning("LEGACY_PREFIX_COMMANDS is no longer supported: the bot answers slash commands only")
     try:
         code = asyncio.run(_serve(config))
     except KeyboardInterrupt:

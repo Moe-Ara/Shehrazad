@@ -46,7 +46,7 @@ when no links are configured, a `QueueView._refresh` name collision with discord
 ```
 shehrazad.py / python -m musicbot ─► main.py (config validation, logging, signals)
                                         └─► bot.py  ShehrazadBot (wiring, events, background jobs, command sync)
-  cogs/  music · library · settings · premium · info · legacy   (transport: slash, buttons, ! prefix)
+  cogs/  music · library · settings · premium · info   (transport: slash commands and buttons only)
      └─► service.py  MusicService     (authorization + behaviour; returns Reply / raises UserError)
             ├─► manager.py  PlayerManager (guild → session, voice events, panel I/O, snapshots, capacity)
             │      └─► player.py GuildPlayer (one playback loop per guild) ─► queue.py TrackQueue (pure)
@@ -70,9 +70,9 @@ pages returned HTTP 403 to automated fetching; the points marked † come from s
 | Requirement | Status |
 |---|---|
 | Verified app owned by a **developer team**, team owner 18+, verified emails + 2FA | **Blocked — owner action.** App appears to be personally owned; must be transferred to a team and verified (needed at 75+ servers anyway). |
-| App uses slash commands (or approved Message Content intent) | Done. Legacy `!` commands are optional and off by default. |
+| App uses slash commands (or approved Message Content intent) | Done. Slash commands only; prefix commands were removed and Message Content is not requested. |
 | Links to Terms of Service and Privacy Policy that accurately describe data use | Drafts in `docs/terms-of-service.md` / `docs/privacy-policy.md`; **must be hosted and legally reviewed**. |
-| No harmful language in name/description/commands | **Action:** the legacy `!babe` easter egg contains an insult; it only loads with `LEGACY_PREFIX_COMMANDS=true`. Keep that off (or remove the command) for the public/verified app. |
+| No harmful language in name/description/commands | Done. The `!babe` easter egg was removed together with all prefix commands. |
 | Payouts via Stripe; teams in US/EU/UK only | Owner is EU-based → eligible region. Owner action. |
 | Agree to Monetization Terms + Developer Policy | Owner action. |
 | Paid features must also be purchasable through Premium Apps where available (since 2024-10-07) † | Design uses Premium Apps SKUs only; no external checkout implemented. |
@@ -125,4 +125,4 @@ decided before charging customers at scale.
 - **Comp grants are CLI-only** (shell access to the server), audited, and need a reason — no Discord-side admin command, no hard-coded IDs.
 - **Panel instead of per-track messages**; short notices auto-delete after 20 s.
 - **Session caps** (default 20 free / 25 premium) sized to the measured cost of one stream on 1 vCPU.
-- **Slash-first**: Message Content intent is only requested when legacy commands are enabled.
+- **Slash-only**: no prefix commands, so no privileged Message Content intent to justify to Discord.

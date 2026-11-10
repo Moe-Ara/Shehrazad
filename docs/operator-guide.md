@@ -20,8 +20,8 @@ Migrations run automatically at startup (`schema_migrations` table). Run them ma
 
 v2 has run in production since 2026-11-10 from `/opt/shehrazad` (image `shehrazad:2.0.0`,
 container `shehrazad-shehrazad-1`). Its `.env` (mode 600) holds `DISCORD_TOKEN`, `APPLICATION_ID`,
-`ENVIRONMENT=production`, `LOG_JSON=true`, `LEGACY_PREFIX_COMMANDS=true` (keeps `!p`, `!l3be`,
-`!t3e`, `!ro7e` working) and `IMAGE_TAG=2.0.0`. The token must be in `.env`: the container runs as
+`ENVIRONMENT=production`, `LOG_JSON=true` and `IMAGE_TAG`. Prefix commands were switched off on
+2026-11-10 (`LEGACY_PREFIX_COMMANDS=false`; the setting is ignored from 2.0.1, which is slash-only). The token must be in `.env`: the container runs as
 uid 10001 and cannot read the root-only `properties.properties`. Lifetime premium grants #1–#3
 cover the owner's three servers.
 

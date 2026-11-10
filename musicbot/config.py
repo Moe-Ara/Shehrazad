@@ -42,8 +42,6 @@ class Settings:
     feedback_channel_id: int | None = None
     enabled_providers: frozenset[str] = frozenset({"youtube", "direct"})
     allow_direct_urls: bool = False
-    legacy_prefix_commands: bool = False
-    legacy_prefix: str = "!"
     dev_guild_id: int | None = None
     sync_commands: bool = True
     max_sessions_soft: int = 20
@@ -173,7 +171,6 @@ def load_settings(
     for name, attr in (
         ("LOG_JSON", "log_json"),
         ("ALLOW_DIRECT_URLS", "allow_direct_urls"),
-        ("LEGACY_PREFIX_COMMANDS", "legacy_prefix_commands"),
         ("SYNC_COMMANDS", "sync_commands"),
         ("SHOW_ARTWORK", "show_artwork"),
     ):
@@ -218,11 +215,6 @@ def load_settings(
                 f"ENABLED_PROVIDERS has unknown providers: {', '.join(sorted(unknown))}"
             )
         kwargs["enabled_providers"] = providers & KNOWN_PROVIDERS
-    if (raw := get("LEGACY_PREFIX")) is not None:
-        prefix = raw.strip()
-        if not prefix or len(prefix) > 5:
-            errors.append("LEGACY_PREFIX must be 1-5 characters")
-        kwargs["legacy_prefix"] = prefix
 
     soft = kwargs.get("max_sessions_soft", Settings.max_sessions_soft)
     hard = kwargs.get("max_sessions_hard", Settings.max_sessions_hard)

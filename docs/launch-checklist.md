@@ -39,7 +39,7 @@ live on Discord** · `[ ]` open · `[!]` blocked on an owner/external action.
 ## Security & privacy
 - [x] Token only from env/properties, never logged (redaction tests)
 - [x] SSRF: generic extractor disabled; direct URLs must resolve to public IPs
-- [x] Minimal invite permissions; minimal intents (Message Content only with legacy commands)
+- [x] Minimal invite permissions; minimal intents (no privileged intents; slash commands only)
 - [x] Per-user rate limits on commands, buttons, feedback, privacy actions
 - [x] Data export/delete (user and server), retention purge, deletion 30 days after removal
 - [ ] Rotate the Discord bot token and the VPS root password (both were shared in chat)
@@ -47,7 +47,8 @@ live on Discord** · `[ ]` open · `[!]` blocked on an owner/external action.
 - [ ] SSH key auth on the VPS, disable password login
 - [!] Host ToS and Privacy Policy; legal review (`docs/terms-of-service.md`, `docs/privacy-policy.md`)
 - [!] Music licensing decision (deferred by owner — see readiness report §5)
-- [ ] Remove or keep disabled the `!babe` easter egg for the verified app (harmful-language rule)
+- [x] `!babe` easter egg removed with all prefix commands (harmful-language rule)
+- [ ] Turn off the Message Content intent in the Developer Portal (Bot → Privileged Gateway Intents); the bot no longer uses it
 
 ## Operations
 - [x] Health/readiness/metrics endpoints (tests)
