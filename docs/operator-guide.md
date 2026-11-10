@@ -16,24 +16,22 @@ curl -s localhost:8080/readyz                 # {"ready": true, ...}
 Migrations run automatically at startup (`schema_migrations` table). Run them manually with
 `docker compose exec shehrazad python -m musicbot.cli migrate`.
 
-### Upgrading the current VPS (v1 → v2) — not done yet, needs your go-ahead
+### Current VPS (216.173.77.168)
 
-The VPS at `/opt/shehrazad` runs v1. v2 is already **built and staged** at `/opt/shehrazad.new`
-(image `shehrazad:2.0.0`), and its database already holds lifetime premium grants for your three
-servers. To switch:
+v2 has run in production since 2026-11-10 from `/opt/shehrazad` (image `shehrazad:2.0.0`,
+container `shehrazad-shehrazad-1`). Its `.env` (mode 600) holds `DISCORD_TOKEN`, `APPLICATION_ID`,
+`ENVIRONMENT=production`, `LOG_JSON=true`, `LEGACY_PREFIX_COMMANDS=true` (keeps `!p`, `!l3be`,
+`!t3e`, `!ro7e` working) and `IMAGE_TAG=2.0.0`. The token must be in `.env`: the container runs as
+uid 10001 and cannot read the root-only `properties.properties`. Lifetime premium grants #1–#3
+cover the owner's three servers.
 
-1. In `/opt/shehrazad.new`, create `.env` (mode 600) with `DISCORD_TOKEN=…`,
-   `ENVIRONMENT=production`, `LOG_JSON=true`, `LEGACY_PREFIX_COMMANDS=true` (keeps `!p`, `!l3be`,
-   `!t3e`, `!ro7e` working; the Message Content intent is already enabled since v1 used it) and
-   `IMAGE_TAG=2.0.0`. Put the token in `.env`, not only in `properties.properties`: the v2 container
-   runs as uid 10001 and cannot read a root-only `properties.properties`.
-2. `cd /opt/shehrazad && docker compose down`
-3. `cd /opt && mv shehrazad shehrazad.v1 && mv shehrazad.new shehrazad`
-4. `cd /opt/shehrazad && docker compose up -d` then `curl -s localhost:8080/readyz` → `"ready": true`.
-5. Slash commands change on first start (sync happens once; Discord clients may need Ctrl+R).
-
-Rollback: `cd /opt/shehrazad && docker compose down && cd /opt && mv shehrazad shehrazad.v2 &&
+v1 is kept at `/opt/shehrazad.v1` (image `shehrazad-shehrazad:latest`), and the database as it was
+before v2's first start is at `/opt/shehrazad-v2-prestart.db`. Rollback to v1:
+`cd /opt/shehrazad && docker compose down && cd /opt && mv shehrazad shehrazad.v2 &&
 mv shehrazad.v1 shehrazad && cd shehrazad && docker compose up -d`. v1 ignores v2's data.
+
+Updating v2: upload a `git archive HEAD` tarball over `/opt/shehrazad` (keep `.env`, `data/`,
+`properties.properties`), bump `IMAGE_TAG`, then `docker compose up -d --build`.
 
 ## Configuration
 

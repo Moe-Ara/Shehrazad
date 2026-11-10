@@ -53,11 +53,11 @@ live on Discord** · `[ ]` open · `[!]` blocked on an owner/external action.
 - [x] Health/readiness/metrics endpoints (tests)
 - [x] Graceful shutdown; non-root container; healthcheck; log rotation
 - [x] Kill switches without restart
-- [x] Docker image builds on the VPS and boots offline as uid 10001 (`shehrazad:2.0.0`)
+- [x] Docker image builds on the VPS and runs as uid 10001 (`shehrazad:2.0.0`)
 - [ ] Staging Discord application + `DEV_GUILD_ID`
 - [ ] Off-box backups scheduled; restore rehearsed
 - [ ] Alerts wired (see operator guide)
-- [ ] Deploy v2 to production (**needs owner approval**)
+- [x] Deploy v2 to production (2026-11-10: ready in 6 s, 32 commands synced, 3 servers, premium grants active)
 
 ## Business
 - [!] Business identity/registration for receiving payouts (Germany: Gewerbe, tax number)
