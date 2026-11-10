@@ -45,18 +45,17 @@
 .shz .shz-q b{display:block;color:#fff;margin-bottom:4px;font-size:15px}
 .shz .shz-foot{padding:18px 28px 22px;border-top:1px solid rgba(255,255,255,.06);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;color:var(--shz-muted);font-size:13px}
 .shz .shz-foot a{color:var(--shz-gold2)!important;text-decoration:none!important}
-.shz .shz-ar{font-family:"Aldhabi","Arabic Typesetting","Noto Naskh Arabic","Segoe UI",serif;color:var(--shz-gold2);font-size:20px}
 @media (max-width:560px){.shz .shz-hero,.shz .shz-section,.shz .shz-foot{padding-left:16px;padding-right:16px}.shz p.shz-lead{font-size:16px}}
 </style>
 <div class="shz">
 <img class="shz-banner" src="https://raw.githubusercontent.com/Moe-Ara/Shehrazad/commercial-readiness/assets/banner-1360x480.png" alt="Shehrazad: music for your voice channels">
 <div class="shz-hero">
-<p class="shz-lead"><b>Shehrazad</b> plays music in your voice channel with no setup. Search a song or paste a link, then run everything from one player panel. Every command is a slash command, in English or Arabic.</p>
+<p class="shz-lead"><b>Shehrazad</b> plays music in your voice channel with no setup. Search a song or paste a link, then run everything from one player panel. Every command is a slash command, and there are cute anime GIFs too.</p>
 <div class="shz-cta">
 <a class="shz-btn shz-gold" href="https://discord.com/oauth2/authorize?client_id=892731315928047637&amp;permissions=3230720&amp;scope=bot+applications.commands">➕ Add to Discord</a>
 <a class="shz-btn" href="https://top.gg/bot/892731315928047637/vote">⭐ Vote on top.gg</a>
 </div>
-<div class="shz-chips"><span>🎵 YouTube · SoundCloud · audio files</span><span>⌨️ Slash commands</span><span>🌍 English · العربية</span><span>🔒 No admin permission needed</span></div>
+<div class="shz-chips"><span>🎵 YouTube · SoundCloud · audio files</span><span>⌨️ Slash commands</span><span>🎀 Cute anime GIFs</span><span>🔒 No admin permission needed</span></div>
 </div>
 <div class="shz-section">
 <h2 class="shz-h">Why Shehrazad</h2>
@@ -66,7 +65,7 @@
 <div class="shz-card"><span class="shz-ico">🎛️</span><b>One player panel</b><span class="shz-txt">Pause, skip, go back, repeat, shuffle and change the volume with buttons on a single Now Playing message. It moves back to the bottom of the chat when it gets buried.</span></div>
 <div class="shz-card"><span class="shz-ico">⌨️</span><b>Slash commands that help you</b><span class="shz-txt">Type <code>/</code> and pick a command. As you type, <code>/play</code> suggests your liked tracks and songs played in this server.</span></div>
 <div class="shz-card"><span class="shz-ico">⚖️</span><b>Fair for everyone</b><span class="shz-txt">Vote to skip, plus an optional DJ role, DJ mode and rules for who may add songs. Nobody can hijack the queue.</span></div>
-<div class="shz-card"><span class="shz-ico">🌍</span><b>English &amp; <span class="shz-ar">العربية</span></b><span class="shz-txt">Answers in your Discord language automatically, or set one per server with <code>/settings language</code>.</span></div>
+<div class="shz-card"><span class="shz-ico">🎀</span><b>Cute extras</b><span class="shz-txt"><code>/anime picture</code> for a random cute anime picture, <code>/anime react</code> for hugs, head pats and high fives. Always safe for work.</span></div>
 <div class="shz-card"><span class="shz-ico">🛡️</span><b>Reliable &amp; private</b><span class="shz-txt">It skips unplayable tracks, retries when a source has trouble, and asks only for the permissions it needs.</span></div>
 </div>
 </div>
@@ -76,7 +75,7 @@
 <div class="shz-steps">
 <div class="shz-step"><b>Add the bot</b>Use the button above. It only asks for View Channel, Send Messages, Embed Links, Read Message History, Connect and Speak.</div>
 <div class="shz-step"><b>Join a voice channel</b>Then type <code>/play</code> with a song name or link. Suggestions appear as you type.</div>
-<div class="shz-step"><b>Make it yours (optional)</b>Admins can run <code>/setup</code> to choose a DJ role, a player channel and a language.</div>
+<div class="shz-step"><b>Make it yours (optional)</b>Admins can run <code>/setup</code> to choose a DJ role and a player channel.</div>
 </div>
 </div>
 <div class="shz-section">
@@ -115,10 +114,15 @@
 <div class="shz-cmd"><code>/library save</code><code>/library load</code><span>Save the queue as a server playlist and play it later <span class="shz-badge">Premium</span></span></div>
 <div class="shz-cmd"><code>/library list</code><code>/library view</code><code>/library delete</code><span>Browse and manage saved playlists</span></div>
 </div>
+<h3 class="shz-cat">🎀 Fun</h3>
+<div class="shz-cmds">
+<div class="shz-cmd"><code>/anime picture</code><code class="shz-alt">kind: Catgirl</code><span>A random cute anime picture: catgirl, foxgirl, waifu or husbando</span></div>
+<div class="shz-cmd"><code>/anime react</code><code class="shz-alt">action: Hug</code><code class="shz-alt">user: @friend</code><span>A reaction GIF: hugs, head pats, high fives, waves and more</span></div>
+</div>
 <h3 class="shz-cat">⚙ Server setup</h3>
 <div class="shz-cmds">
 <div class="shz-cmd"><code>/setup</code><span>Guided setup with permission checks</span></div>
-<div class="shz-cmd"><code>/settings</code><span>DJ role, DJ mode, player channel, who can add songs, vote-skip, default volume, language, idle timeout, 24/7</span></div>
+<div class="shz-cmd"><code>/settings</code><span>DJ role, DJ mode, player channel, who can add songs, vote-skip, default volume, idle timeout, 24/7</span></div>
 </div>
 <h3 class="shz-cat">ℹ Info</h3>
 <div class="shz-cmds">
@@ -151,10 +155,12 @@
 <div class="shz-q"><b>Can it play Spotify links?</b>Not directly, because Spotify doesn't allow streaming to bots. Search by song name instead: <code>/play song name</code>.</div>
 <div class="shz-q"><b>Does it need admin?</b>No. It only asks for the six permissions above. <code>/setup</code> tells you if a channel blocks it.</div>
 <div class="shz-q"><b>What data is stored?</b>Server settings, recently played tracks (kept 30 days), and your liked tracks and saved playlists. Never voice audio. Use <code>/privacy</code> to export or delete it.</div>
+<div class="shz-q"><b>Is /anime safe for work?</b>Yes. Pictures and GIFs come from nekos.best, a fully SFW anime API, and the bot only uses wholesome categories like hugs, head pats and waves. Every picture credits its artist.</div>
+<div class="shz-q"><b>Can admins turn a command off?</b>Yes. In Server Settings → Integrations → Shehrazad, admins can hide any command, such as <code>/anime</code>, or limit it to certain roles and channels.</div>
 </div>
 </div>
 <div class="shz-foot">
-<span>Made with ♪ by Moe · <span class="shz-ar">شهرزاد</span></span>
+<span>Made with ♪ by Moe</span>
 <span><a href="https://discord.com/oauth2/authorize?client_id=892731315928047637&amp;permissions=3230720&amp;scope=bot+applications.commands">Add to Discord</a> · <a href="https://github.com/Moe-Ara/Shehrazad">Source code</a></span>
 </div>
 </div>

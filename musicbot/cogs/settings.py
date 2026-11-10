@@ -25,12 +25,10 @@ def settings_embed(bot: ShehrazadBot, actor: Actor, settings: GuildSettings) -> 
     loc = actor.locale
     status = bot.premium.status(actor.guild.id)
     yes, no = t(loc, "common.on"), t(loc, "common.off")
-    lang = {"auto": t(loc, "settings.lang_auto"), "en": "English", "ar": "العربية"}[settings.language]
     limits = bot.premium.limits(actor.guild.id)
     idle = settings.idle_timeout_seconds or limits.default_idle_seconds
     embed = ui.info(f"{ui.ICON['settings']} {t(loc, 'settings.title')}")
     rows = [
-        (t(loc, "settings.language"), lang),
         (t(loc, "settings.music_channel"), f"<#{settings.music_channel_id}>" if settings.music_channel_id else t(loc, "settings.any_channel")),
         (t(loc, "settings.dj_role"), f"<@&{settings.dj_role_id}>" if settings.dj_role_id else t(loc, "settings.none")),
         (t(loc, "settings.dj_mode"), yes if settings.dj_mode else no),
@@ -60,7 +58,7 @@ def diagnostics(actor: Actor, voice: discord.abc.GuildChannel | None, text: disc
 
 
 class SetupView(discord.ui.View):
-    """Interactive first-run setup: channel, DJ role, language and DJ mode."""
+    """Interactive first-run setup: channel, DJ role, DJ mode and vote-skip."""
 
     def __init__(self, bot: ShehrazadBot, actor: Actor) -> None:
         super().__init__(timeout=600)
@@ -73,23 +71,13 @@ class SetupView(discord.ui.View):
         role_select: discord.ui.RoleSelect[SetupView] = discord.ui.RoleSelect(
             placeholder=t(loc, "setup.pick_role"), min_values=0, max_values=1, row=1
         )
-        language: discord.ui.Select[SetupView] = discord.ui.Select(
-            placeholder=t(loc, "setup.pick_language"),
-            options=[
-                discord.SelectOption(label=t(loc, "settings.lang_auto"), value="auto", emoji="🌐"),
-                discord.SelectOption(label="English", value="en", emoji="🇬🇧"),
-                discord.SelectOption(label="العربية", value="ar", emoji="🇸🇦"),
-            ],
-            row=2,
-        )
         channel_select.callback = self._make(lambda i, s=channel_select: self._save(i, music_channel_id=s.values[0].id if s.values else None))  # type: ignore[method-assign]
         role_select.callback = self._make(lambda i, s=role_select: self._save(i, dj_role_id=s.values[0].id if s.values else None))  # type: ignore[method-assign]
-        language.callback = self._make(lambda i, s=language: self._save(i, language=s.values[0]))  # type: ignore[method-assign]
-        for item in (channel_select, role_select, language):
+        for item in (channel_select, role_select):
             self.add_item(item)
-        self.dj_button: discord.ui.Button[SetupView] = discord.ui.Button(row=3, style=discord.ButtonStyle.secondary)
-        self.vote_button: discord.ui.Button[SetupView] = discord.ui.Button(row=3, style=discord.ButtonStyle.secondary)
-        done: discord.ui.Button[SetupView] = discord.ui.Button(label=t(loc, "setup.finish"), style=discord.ButtonStyle.success, row=3, emoji="✅")
+        self.dj_button: discord.ui.Button[SetupView] = discord.ui.Button(row=2, style=discord.ButtonStyle.secondary)
+        self.vote_button: discord.ui.Button[SetupView] = discord.ui.Button(row=2, style=discord.ButtonStyle.secondary)
+        done: discord.ui.Button[SetupView] = discord.ui.Button(label=t(loc, "setup.finish"), style=discord.ButtonStyle.success, row=2, emoji="✅")
         self.dj_button.callback = self._make(lambda i: self._save(i, dj_mode=not self.actor.settings.dj_mode))  # type: ignore[method-assign]
         self.vote_button.callback = self._make(lambda i: self._save(i, vote_skip=not self.actor.settings.vote_skip))  # type: ignore[method-assign]
         done.callback = self._finish  # type: ignore[method-assign]
@@ -192,22 +180,26 @@ class Settings(commands.GroupCog, group_name="settings", group_description="Conf
 
     @app_commands.command(name="music-channel", description="Where the player panel is posted (empty = where /play is used).")
     @app_commands.guild_only()
+    @app_commands.describe(channel="Text channel for the player panel (leave empty to use wherever /play is run)")
     async def music_channel(self, interaction: discord.Interaction, channel: discord.TextChannel | None = None) -> None:
         await self._update(interaction, "music_channel", {"music_channel_id": channel.id if channel else None})
 
     @app_commands.command(name="dj-role", description="Role that can always control playback (empty = none).")
     @app_commands.guild_only()
+    @app_commands.describe(role="The DJ role (leave empty to remove it)")
     async def dj_role(self, interaction: discord.Interaction, role: discord.Role | None = None) -> None:
         await self._update(interaction, "dj_role", {"dj_role_id": role.id if role else None})
 
     @app_commands.command(name="dj-mode", description="Only DJs (and requesters of the current track) can control playback.")
     @app_commands.guild_only()
+    @app_commands.describe(enabled="Turn DJ mode on or off")
     async def dj_mode(self, interaction: discord.Interaction, enabled: bool) -> None:
         await self._update(interaction, "dj_mode", {"dj_mode": enabled})
 
     @app_commands.command(name="requests", description="Who can add songs.")
     @app_commands.choices(who=[app_commands.Choice(name="Everyone", value="everyone"), app_commands.Choice(name="DJs only", value="dj")])
     @app_commands.guild_only()
+    @app_commands.describe(who="Who may add songs to the queue")
     async def requests(self, interaction: discord.Interaction, who: app_commands.Choice[str]) -> None:
         await self._update(interaction, "requests", {"request_mode": who.value})
 
@@ -219,21 +211,14 @@ class Settings(commands.GroupCog, group_name="settings", group_description="Conf
 
     @app_commands.command(name="default-volume", description="Volume new sessions start at.")
     @app_commands.guild_only()
+    @app_commands.describe(percent="Starting volume in percent (1-150)")
     async def default_volume(self, interaction: discord.Interaction, percent: app_commands.Range[int, 1, 150]) -> None:
         await self._update(interaction, "default_volume", {"default_volume": percent})
 
-    @app_commands.command(name="language", description="Language of the bot's replies.")
-    @app_commands.choices(language=[
-        app_commands.Choice(name="Automatic (follow Discord)", value="auto"),
-        app_commands.Choice(name="English", value="en"),
-        app_commands.Choice(name="العربية (Arabic)", value="ar"),
-    ])
-    @app_commands.guild_only()
-    async def language(self, interaction: discord.Interaction, language: app_commands.Choice[str]) -> None:
-        await self._update(interaction, "language", {"language": language.value})
 
     @app_commands.command(name="idle-timeout", description="Minutes to wait with an empty queue before leaving.")
     @app_commands.guild_only()
+    @app_commands.describe(minutes="Minutes before leaving (Free: up to 10, Premium: up to 60)")
     async def idle_timeout(self, interaction: discord.Interaction, minutes: app_commands.Range[int, 1, 60]) -> None:
         def validate(actor: Actor) -> None:
             limits = self.bot.premium.limits(actor.guild.id)

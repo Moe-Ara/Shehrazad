@@ -86,7 +86,7 @@ Revoke a comp grant with `premium revoke <id> --reason "..."`.
 | Command | Purpose |
 |---|---|
 | `premium grant/revoke/status/list` | Complimentary premium (audited) |
-| `flag list` / `flag set <name> on|off` | Kill switches: `provider.youtube`, `provider.direct`, `premium.sales`, `feature.saved_playlists`, `feature.stay_connected`, `feature.feedback` |
+| `flag list` / `flag set <name> on|off` | Kill switches: `provider.youtube`, `provider.direct`, `premium.sales`, `feature.saved_playlists`, `feature.stay_connected`, `feature.feedback`, `feature.anime` |
 | `data export-guild/delete-guild/export-user/delete-user <id>` | Data-subject requests |
 | `data purge` | Apply retention now (also runs daily) |
 | `audit [--limit N]` | Administrative actions |

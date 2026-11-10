@@ -10,7 +10,7 @@
 ## What we collect
 | Data | Why | Retention |
 |---|---|---|
-| Server ID and server settings (language, player channel, DJ role, toggles) | To run the bot the way the server configured it | Until the server deletes it, or 30 days after the bot is removed |
+| Server ID and server settings (player channel, DJ role, toggles) | To run the bot the way the server configured it | Until the server deletes it, or 30 days after the bot is removed |
 | Play history: track title/link, time, ID of the user who requested it | "Recently played", autocomplete | 30 days |
 | Favorites: track title/link per user ID | Your liked tracks | Until you delete them |
 | Saved server playlists: tracks and creator's user ID | Premium playlists | Until deleted (by the server or the creator); 30 days after removal |
@@ -29,7 +29,8 @@ abuse prevention (Art. 6(1)(f)). [Confirm with counsel.]
 ## Sharing
 Data is not sold. Processors: our hosting provider [name, location]. Discord processes payments.
 Music is fetched from third-party platforms (e.g. YouTube) using the track query or link; no user
-data is sent to them.
+data is sent to them. `/anime` images are fetched from nekos.best with only the picture category; no
+user data is sent.
 
 ## Your rights
 Use `/privacy` to export or delete your data at any time (server admins can export/delete server

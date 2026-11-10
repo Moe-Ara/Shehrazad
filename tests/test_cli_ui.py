@@ -58,8 +58,8 @@ async def test_now_playing_embed_and_panel_states():
     assert by_id[ui.PANEL_PREFIX + "previous"].disabled  # no history yet
     assert all(item.label for item in view.children)  # accessible text labels
     await p.pause()
-    paused = {i.custom_id: i for i in ui.PanelView(AsyncMock(), locale="ar", player=p).children}
-    assert paused[ui.PANEL_PREFIX + "toggle"].label == "استمرار"
+    paused = {i.custom_id: i for i in ui.PanelView(AsyncMock(), locale="en", player=p).children}
+    assert paused[ui.PANEL_PREFIX + "toggle"].label == "Resume"
     await p.shutdown("test")
     ended = ui.PanelView(AsyncMock(), locale="en", player=p)
     assert all(item.disabled for item in ended.children)

@@ -4,7 +4,7 @@ Everything needed for the bot's page on top.gg. Bot ID / application ID: `892731
 
 | Top.gg field | What to put there |
 |---|---|
-| Short description | `Music for your voice channels: YouTube & SoundCloud, playlists, a one-click player panel and slash commands, in English & Arabic.` |
+| Short description | `Music for your voice channels: YouTube & SoundCloud, playlists, a one-click player panel, slash commands and cute anime GIFs.` |
 | Long description | The whole of [`long-description.html`](long-description.html), including the `<style>` block at the top |
 | Prefix | `/` (slash commands only) |
 | Invite link | `https://discord.com/oauth2/authorize?client_id=892731315928047637&permissions=3230720&scope=bot+applications.commands` |
@@ -24,9 +24,16 @@ Everything needed for the bot's page on top.gg. Bot ID / application ID: `892731
   If the `commercial-readiness` branch is deleted after merging, change it to `main` in the URL.
 - The "Vote on top.gg" button works once the bot is approved.
 
+## Widget
+
+[`widget.html`](widget.html) has the HTML for top.gg's widgets: the large card (servers, votes, owner)
+and three small badges. Top.gg keeps the numbers current. The repo README shows the badges in Markdown.
+The widget shows the bot's Discord username, so keep it in Latin letters ("Shehrazad"); top.gg's widget
+font can't draw Arabic and showed empty boxes.
+
 ## Commands (JSON)
 
-[`commands.json`](commands.json) holds all 32 slash commands (with their subcommands and options) in
+[`commands.json`](commands.json) holds all 33 slash commands (with their subcommands and options) in
 Discord's application command format. It is generated from the bot itself and is exactly what the bot
 registers with Discord. That is the format top.gg's **Commands** tab and API take. To push it with
 the API, use the project token from the top.gg dashboard:

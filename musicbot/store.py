@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class GuildSettings:
     guild_id: int
-    language: str = "auto"  # auto | en | ar
+    language: str = "auto"  # unused since the bot became English-only; kept so old rows still load
     dj_role_id: int | None = None
     music_channel_id: int | None = None
     dj_mode: bool = False  # only DJs may control playback

@@ -47,12 +47,14 @@ class Library(commands.GroupCog, group_name="library", group_description="Saved 
     @app_commands.command(name="view", description="Show the tracks in a saved playlist.")
     @app_commands.autocomplete(name=playlist_autocomplete)
     @app_commands.guild_only()
+    @app_commands.describe(name="Playlist name")
     async def view(self, interaction: discord.Interaction, name: str) -> None:
         await run(self.bot, interaction, "library.view", lambda a: self.svc.library_view(a, name))
 
     @app_commands.command(name="delete", description="Delete a saved playlist.")
     @app_commands.autocomplete(name=playlist_autocomplete)
     @app_commands.guild_only()
+    @app_commands.describe(name="Playlist name")
     async def delete(self, interaction: discord.Interaction, name: str) -> None:
         await run(self.bot, interaction, "library.delete", lambda a: self.svc.library_delete(a, name))
 

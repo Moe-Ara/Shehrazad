@@ -1,12 +1,11 @@
 import logging
 import re
-import string
 from pathlib import Path
 
 import pytest
 
 from musicbot.config import ConfigError, load_settings
-from musicbot.i18n import AR, EN, resolve_locale, t
+from musicbot.i18n import CATALOGS, EN, resolve_locale, t
 from musicbot.logging_setup import JsonFormatter, bind, redact
 from musicbot.ops import RateLimiter
 
@@ -62,23 +61,19 @@ def test_dynamic_key_families_exist():
         assert f"feature.{feature.value}" in EN
 
 
-def test_arabic_is_subset_with_matching_placeholders():
-    formatter = string.Formatter()
-    for key, value in AR.items():
-        assert key in EN, key
-        ar_fields = {f for _, f, _, _ in formatter.parse(value) if f}
-        en_fields = {f for _, f, _, _ in formatter.parse(EN[key]) if f}
-        assert ar_fields == en_fields, key
+def test_english_only():
+    assert list(CATALOGS) == ["en"]
+    arabic = re.compile("[\\u0600-\\u06ff]")  # Arabic block
+    for path in ROOT.rglob("*.py"):
+        assert not arabic.search(path.read_text(encoding="utf-8")), path
 
 
 def test_translation_fallbacks():
-    assert t("ar", "premium.row_core") == EN["premium.row_core"]  # missing in AR -> English
+    assert t("ar", "premium.row_core") == EN["premium.row_core"]  # any locale -> English
     assert t("en", "does.not_exist") == "does.not_exist"
     assert t("en", "play.queued_many") == EN["play.queued_many"]  # missing params -> raw template, no crash
-    assert resolve_locale("auto", "ar") == "ar"
-    assert resolve_locale("auto", "en-US") == "en"
-    assert resolve_locale("en", "ar") == "en"
-    assert resolve_locale("auto", "fr") == "en"
+    for setting, discord_locale in (("auto", "ar"), ("ar", "en-US"), ("en", "fr"), (None, None)):
+        assert resolve_locale(setting, discord_locale) == "en"
 
 
 # ------------------------------------------------------------------ config

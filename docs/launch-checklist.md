@@ -10,9 +10,8 @@ live on Discord** · `[ ]` open · `[!]` blocked on an owner/external action.
 - [~] `/setup` wizard with channel/role pickers and permission diagnostics
 - [x] Consistent embeds, colours, icons, text labels on all buttons
 - [x] Errors translated, no stack traces/secrets; `ref` correlation ID shown
-- [x] English catalog complete; Arabic for all core flows (falls back to English per key)
+- [x] English only (one catalog; a test fails if Arabic text appears in the code)
 - [~] Autocomplete on `/play` (favorites + server history) and `/library load|view|delete`
-- [ ] Discord-side command name/description localisation (Arabic)
 - [ ] Screenshots and App Directory listing (`docs/app-directory.md` has the copy)
 
 ## Playback reliability

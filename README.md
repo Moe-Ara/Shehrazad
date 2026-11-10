@@ -1,8 +1,11 @@
 # Shehrazad — Discord music bot
 
+[![Top.gg votes](https://top.gg/api/v1/widgets/small/votes/discord/bot/892731315928047637)](https://top.gg/bot/892731315928047637)
+[![Top.gg](https://top.gg/api/v1/widgets/small/social/discord/bot/892731315928047637)](https://top.gg/bot/892731315928047637)
+
 Search or paste a link, and control everything from one player panel. Multi-server, slash-first,
 with a free tier that never paywalls playback and a per-server Premium tier built on Discord's
-Premium Apps. Replies in English or Arabic.
+Premium Apps. English only.
 
 ## Features
 - `/play` by name, YouTube/SoundCloud link, playlist link or uploaded audio file (song links with
@@ -11,6 +14,7 @@ Premium Apps. Replies in English or Arabic.
 - Queue: view (paginated), remove, move, jump, shuffle, clear, seek, previous, repeat track/queue
 - Vote-skip, DJ role, DJ mode, request permissions, `/setup` wizard with permission diagnostics
 - Favorites, recently played, saved server playlists ✨, 24/7 ✨, queue restore ✨
+- `/anime picture` and `/anime react`: cute, safe-for-work anime pictures and reaction GIFs (nekos.best)
 - `/help`, `/premium`, `/status`, `/privacy` (export/delete), `/feedback`, `/invite`, `/support`, `/about`
 - Slash commands only: no prefix commands and no Message Content intent
 

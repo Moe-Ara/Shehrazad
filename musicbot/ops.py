@@ -20,6 +20,7 @@ KNOWN_FLAGS = {
     "feature.saved_playlists": "Saved server playlists",
     "feature.stay_connected": "24/7 mode",
     "feature.feedback": "The /feedback command",
+    "feature.anime": "The /anime picture and reaction commands",
 }
 
 

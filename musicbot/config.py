@@ -43,6 +43,8 @@ class Settings:
     enabled_providers: frozenset[str] = frozenset({"youtube", "direct"})
     allow_direct_urls: bool = False
     dev_guild_id: int | None = None
+    owner_ids: frozenset[int] = frozenset()  # empty = the Discord application's owner
+    novelty_guild_ids: frozenset[int] = frozenset()  # servers that get the owner-only novelty commands
     sync_commands: bool = True
     max_sessions_soft: int = 20
     max_sessions_hard: int = 25
@@ -197,8 +199,13 @@ def load_settings(
     ):
         if (raw := get(name)) is not None:
             kwargs[attr] = _parse_int(name, raw, errors, minimum=1)
-    if (raw := get("PREMIUM_SKU_IDS")) is not None:
-        kwargs["premium_sku_ids"] = _parse_id_set("PREMIUM_SKU_IDS", raw, errors)
+    for name, attr in (
+        ("PREMIUM_SKU_IDS", "premium_sku_ids"),
+        ("OWNER_IDS", "owner_ids"),
+        ("NOVELTY_GUILD_IDS", "novelty_guild_ids"),
+    ):
+        if (raw := get(name)) is not None:
+            kwargs[attr] = _parse_id_set(name, raw, errors)
     for name, attr in (
         ("SUPPORT_URL", "support_url"),
         ("WEBSITE_URL", "website_url"),

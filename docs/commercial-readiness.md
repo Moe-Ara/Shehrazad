@@ -107,7 +107,6 @@ decided before charging customers at scale.
 ### P1 — first months
 - Second, licensed or user-supplied provider (e.g. attachments are already supported).
 - Off-box database backups (cron + `sqlite3 .backup`) and alerting on `/readyz` + metrics.
-- Command localisation (Discord `name_localizations`) for Arabic.
 - Autoplay only if an authorised recommendation source exists (currently not implemented on purpose).
 - Website with ToS/Privacy pages and a status page.
 

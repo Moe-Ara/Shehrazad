@@ -42,9 +42,24 @@ private (ephemeral). Controls require being in the bot's voice channel.
 ## Server setup (Manage Server)
 | Command | What it does |
 |---|---|
-| `/setup` | Guided setup: player channel, DJ role, language, DJ mode, vote-skip, permission check |
+| `/setup` | Guided setup: player channel, DJ role, DJ mode, vote-skip, permission check |
 | `/settings view` | All settings |
-| `/settings music-channel`, `dj-role`, `dj-mode`, `requests`, `vote-skip`, `default-volume`, `language`, `idle-timeout`, `stay-connected` ✨, `reset` | Individual settings |
+| `/settings music-channel`, `dj-role`, `dj-mode`, `requests`, `vote-skip`, `default-volume`, `idle-timeout`, `stay-connected` ✨, `reset` | Individual settings |
+
+## Fun
+| Command | What it does |
+|---|---|
+| `/anime picture [kind]` | Random cute anime picture: Catgirl, Foxgirl, Waifu or Husbando (credits the artist) |
+| `/anime react <action> [user]` | Reaction GIF: hug, head pat, cuddle, wave, smile, high five, hold hands, dance and more |
+
+Images come from [nekos.best](https://nekos.best), a fully SFW anime API, and only wholesome categories are used
+(no violent or romantic reactions). Kill switch: `flag set feature.anime off`. Admins can hide `/anime` in
+Server Settings → Integrations.
+
+## Owner-only novelty commands
+`/heybabe`, `/whereareyou`, `/comehere`, `/goaway`. They are registered only in the servers listed in
+`NOVELTY_GUILD_IDS` (never globally, so they're not on top.gg or in other servers) and answer only `OWNER_IDS`;
+anyone else gets a private "just for my owner" reply.
 
 ## Info
 `/help`, `/premium`, `/status` (latency, sources, this server's player, permission problems),

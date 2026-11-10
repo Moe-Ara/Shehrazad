@@ -16,6 +16,7 @@ from discord import app_commands
 from discord.ext import commands
 
 from . import __version__, ui
+from .anime import AnimeClient
 from .config import Settings
 from .db import Database
 from .health import HealthServer
@@ -49,6 +50,8 @@ COGS = (
     "musicbot.cogs.settings",
     "musicbot.cogs.premium",
     "musicbot.cogs.info",
+    "musicbot.cogs.fun",
+    "musicbot.cogs.novelty",  # owner-only, guild-scoped; adds nothing unless NOVELTY_GUILD_IDS is set
 )
 
 
@@ -157,6 +160,7 @@ class ShehrazadBot(commands.Bot):
             is_enabled=lambda name: self.flags.enabled(f"provider.{name}"),
         )
         self.service = MusicService(self)
+        self.anime = AnimeClient()
         self.health = HealthServer(self, config.health_host, config.health_port)
         self.gateway_down_since: float | None = None
         self.started_monotonic = time.monotonic()
@@ -229,6 +233,30 @@ class ShehrazadBot(commands.Bot):
             await self.store.kv.set(key, digest)
             log.info("synced %d slash commands (%s)", len(synced), scope)
         self.command_mentions = build_mentions(synced)
+        await self.sync_guild_commands()
+
+    async def sync_guild_commands(self) -> None:
+        """Sync guild-only commands (owner novelty) to NOVELTY_GUILD_IDS, only when they changed.
+
+        Servers dropped from the list are synced with an empty set, which removes the commands there.
+        """
+        previous = {int(g) for g in json.loads(await self.store.kv.get("novelty_guilds") or "[]")}
+        current = set(self.config.novelty_guild_ids)
+        for guild_id in sorted(current | previous):
+            guild = discord.Object(id=guild_id)
+            commands_here = [c.to_dict(self.tree) for c in self.tree.get_commands(guild=guild)]
+            digest = hashlib.sha256(json.dumps(commands_here, sort_keys=True, default=str).encode()).hexdigest()
+            key = f"commands_hash:guild:{guild_id}"
+            if await self.store.kv.get(key) == digest:
+                continue
+            try:
+                synced = await self.tree.sync(guild=guild)
+            except discord.HTTPException as exc:
+                log.warning("could not sync guild commands to %s: %s", guild_id, exc)
+                continue
+            await self.store.kv.set(key, digest)
+            log.info("synced %d guild-only commands (guild:%s)", len(synced), guild_id)
+        await self.store.kv.set("novelty_guilds", json.dumps(sorted(current)))
 
     # ------------------------------------------------------------------ jobs
 
@@ -334,6 +362,7 @@ class ShehrazadBot(commands.Bot):
             except Exception:
                 log.exception("error while stopping sessions")
         await self.health.stop()
+        await self.anime.close()
         await super().close()
         await self.db.close()
         self.executor.shutdown(wait=False, cancel_futures=True)

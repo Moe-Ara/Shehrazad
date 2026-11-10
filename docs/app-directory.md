@@ -16,7 +16,7 @@ a flood of messages.
 - 📜 Real queue tools: move, remove, jump, shuffle, clear, seek, previous
 - 🗳️ Vote-skip, DJ role and DJ mode so the room stays in control
 - ⚙️ `/setup` in under a minute, with a built-in permission check
-- 🌍 English and Arabic
+- 🎀 `/anime` for cute, safe-for-work anime pictures and reaction GIFs
 - 🔒 Minimal permissions, no message reading, `/privacy` to export or delete your data
 
 **Premium (per server):** saved server playlists, 24/7 mode, queue restore after restarts, bigger queues

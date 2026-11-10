@@ -12,9 +12,8 @@
 <style>
   html, body { margin: 0; padding: 0; background: #07061c; overflow: hidden; }
   svg { display: block; width: 100vw; height: 100vh; }
-  .ar { font-family: "Aldhabi", "Arabic Typesetting", "Sakkal Majalla", serif; }
-  .en { font-family: Georgia, "Times New Roman", serif; letter-spacing: 0.42em; }
-  .tag { font-family: "Segoe UI", Arial, sans-serif; letter-spacing: 0.32em; }
+  .title { font-family: "Gabriola", "Palatino Linotype", Georgia, serif; }
+  .en { font-family: Georgia, "Times New Roman", serif; letter-spacing: 0.32em; }
 </style>
 </head>
 <body>
@@ -124,9 +123,8 @@
 
   <!-- title -->
   <g id="title" text-anchor="middle">
-    <text class="ar" x="1215" y="470" font-size="250" fill="url(#gold)" filter="url(#textGlow)">شهرزاد</text>
-    <text class="en" x="1215" y="572" font-size="44" fill="#f7dfa0" opacity="0.95">SHEHRAZAD</text>
-    <text class="tag" x="1215" y="616" font-size="20" fill="#f2c9d8" opacity="0.75">MUSIC FOR YOUR VOICE CHANNELS</text>
+    <text class="title" x="1215" y="500" font-size="240" fill="url(#gold)" filter="url(#textGlow)">Shehrazad</text>
+    <text class="en" x="1215" y="585" font-size="27" fill="#f7dfa0" opacity="0.92">MUSIC FOR YOUR VOICE CHANNELS</text>
   </g>
 
   <rect width="1920" height="1080" fill="url(#vignette)"/>
@@ -175,7 +173,7 @@ for (let k = 0; k < 5; k++) {
   el("path", { d, fill: "none", stroke: "url(#ribbon)", "stroke-width": k === 0 ? 3.2 : 1.4, opacity: k === 0 ? 0.95 : 0.45 }, ribbons);
 }
 const notes = document.getElementById("notes");
-[["♪", 850, 610, 46, -12], ["♫", 1580, 520, 52, 10], ["♪", 1650, 660, 34, 6], ["♫", 590, 560, 30, -8]]
+[["♪", 850, 610, 46, -12], ["♫", 1730, 470, 52, 10], ["♪", 1650, 660, 34, 6], ["♫", 590, 560, 30, -8]]
   .forEach(([g, x, y, s, rot]) => {
     const n = el("text", { x, y, "font-size": s, fill: "#f7d488", opacity: 0.55, transform: `rotate(${rot} ${x} ${y})`,
       "font-family": "Segoe UI Symbol, Segoe UI, sans-serif", filter: "url(#glow)" }, notes);
@@ -226,7 +224,7 @@ for (let x = -40; x < 1960; x += 90 + rnd() * 90) block(near, x, 90 + rnd() * 80
 mosque(near, 700, 170, 300);
 mosque(near, 1880, 150, 260);
 minaret(near, 470, 22, 360);
-minaret(near, 930, 22, 360);
+minaret(near, 800, 22, 330);
 minaret(near, 1720, 20, 320);
 mosque(near, 120, 120, 210);
 

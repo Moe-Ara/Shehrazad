@@ -28,6 +28,7 @@ HELP_CATEGORIES = {
     "queue": ("help.cat_queue", "📜", ["queue", "remove", "move", "jump", "shuffle", "clear", "playlist", "history", "restore"]),
     "library": ("help.cat_library", "📚", ["library save", "library load", "library list", "library view", "library delete", "library favorites", "library like"]),
     "server": ("help.cat_server", "⚙️", ["setup", "settings view", "settings dj-role", "settings dj-mode", "settings music-channel", "settings stay-connected"]),
+    "fun": ("help.cat_fun", "🎀", ["anime picture", "anime react"]),
     "info": ("help.cat_info", "ℹ️", ["premium", "status", "invite", "support", "privacy", "feedback", "about"]),
 }
 
@@ -227,6 +228,7 @@ class Info(commands.Cog):
         app_commands.Choice(name="Idea", value="idea"),
         app_commands.Choice(name="Other", value="other"),
     ])
+    @app_commands.describe(kind="What kind of feedback this is")
     async def feedback(self, interaction: discord.Interaction, kind: app_commands.Choice[str]) -> None:
         locale = await self._locale(interaction)
         if not self.bot.flags.enabled("feature.feedback"):
