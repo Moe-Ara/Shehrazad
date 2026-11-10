@@ -10,7 +10,8 @@ Everything needed for the bot's page on top.gg. Bot ID / application ID: `892731
 | Invite link | `https://discord.com/oauth2/authorize?client_id=892731315928047637&permissions=3230720&scope=bot+applications.commands` |
 | Tags | Music (plus Fun / Utility if you want more) |
 | Commands tab | [`commands.json`](commands.json) (see below) |
-| Support server / website | Leave empty until you have a support server. Don't link the draft Terms/Privacy docs, they still have placeholders. |
+| Website | `https://moe-ara.github.io/Shehrazad/` |
+| Terms / Privacy | `https://moe-ara.github.io/Shehrazad/terms.html` and `https://moe-ara.github.io/Shehrazad/privacy.html` |
 
 ## Long description
 

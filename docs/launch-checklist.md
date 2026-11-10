@@ -44,7 +44,8 @@ live on Discord** · `[ ]` open · `[!]` blocked on an owner/external action.
 - [ ] Rotate the Discord bot token and the VPS root password (both were shared in chat)
 - [ ] Remove `cookies.txt` from git history (contains old YouTube cookies)
 - [ ] SSH key auth on the VPS, disable password login
-- [!] Host ToS and Privacy Policy; legal review (`docs/terms-of-service.md`, `docs/privacy-policy.md`)
+- [x] ToS and Privacy Policy hosted on GitHub Pages (https://moe-ara.github.io/Shehrazad/terms.html, https://moe-ara.github.io/Shehrazad/privacy.html)
+- [ ] Add your legal name and a postal contact (EU controller/Impressum) before selling; legal review
 - [!] Music licensing decision (deferred by owner — see readiness report §5)
 - [x] `!babe` easter egg removed with all prefix commands (harmful-language rule)
 - [ ] Turn off the Message Content intent in the Developer Portal (Bot → Privileged Gateway Intents); the bot no longer uses it
