@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Shehrazad</title>
+<meta name="description" content="What data Shehrazad, the Discord music bot, stores, why, for how long, and how to export or delete it.">
+<link rel="icon" href="https://cdn.discordapp.com/avatars/892731315928047637/90284ef651acccd54dd82b9447298258.png?size=64">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="./"><img src="https://cdn.discordapp.com/avatars/892731315928047637/90284ef651acccd54dd82b9447298258.png?size=64" alt="">Shehrazad</a>
+    <nav class="nav">
+      <a href="./">Home</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+    </nav>
+  </div>
+</header>
+<main class="doc">
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: 10 November 2026</p>
+
+  <div class="summary">
+    <p><b>In short:</b> Shehrazad stores as little as possible: your server's settings, what was played
+    recently, and things you choose to save. It can't read your messages, never records voice, and never
+    sees your email or payment details.</p>
+    <p>You can export or delete your data at any time with the <code>/privacy</code> command.</p>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><a href="#who">Who is responsible</a></li>
+      <li><a href="#collect">What we store, why, and for how long</a></li>
+      <li><a href="#not">What we don't collect</a></li>
+      <li><a href="#basis">Legal bases</a></li>
+      <li><a href="#sharing">Who else is involved</a></li>
+      <li><a href="#rights">Your rights and how to use them</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#changes">Changes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="who">1. Who is responsible</h2>
+  <p>Shehrazad is run by its developer, Moe, who is responsible for the data described here. You can
+  reach us with the bot's <code>/feedback</code> command or on
+  <a href="https://github.com/Moe-Ara/Shehrazad/issues">GitHub</a>.</p>
+
+  <h2 id="collect">2. What we store, why, and for how long</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Data</th><th>Why</th><th>How long</th></tr>
+    <tr><td>Server ID and the server's settings (player channel, DJ role, DJ mode, who may add songs,
+      vote-skip, default volume, idle timeout, 24/7 mode)</td>
+      <td>To run the bot the way the server set it up</td>
+      <td>Until an admin resets or deletes them, or 30 days after the bot is removed from the server</td></tr>
+    <tr><td>Play history: track title and link, time, and the user ID of who requested it</td>
+      <td>"Recently played" and suggestions while you type in <code>/play</code></td>
+      <td>30 days</td></tr>
+    <tr><td>Favorites: track title and link, with your user ID</td>
+      <td>Your liked tracks</td>
+      <td>Until you remove them or delete your data</td></tr>
+    <tr><td>Saved server playlists: tracks and the user ID of who saved them</td>
+      <td>Premium saved playlists</td>
+      <td>Until deleted, and at most 30 days after the bot is removed from the server</td></tr>
+    <tr><td>Queue snapshot for Premium servers (tracks and requester user IDs)</td>
+      <td>Restoring the queue after a restart</td>
+      <td>Replaced as the queue changes; deleted when playback stops</td></tr>
+    <tr><td>Feedback you send with <code>/feedback</code>, with your user ID and server ID</td>
+      <td>Answering you and fixing bugs</td>
+      <td>90 days</td></tr>
+    <tr><td>Premium subscription records from Discord (subscription ID, product, server ID, buyer's user ID, dates)</td>
+      <td>Unlocking Premium and handling cancellations and refunds</td>
+      <td>For as long as the subscription is relevant</td></tr>
+    <tr><td>Technical logs (server ID, command name, errors, timing)</td>
+      <td>Keeping the bot reliable and secure</td>
+      <td>Deleted automatically as new logs come in (at most about 50 MB in total, usually a few days to weeks)</td></tr>
+  </table>
+  </div>
+  <p>While music is playing, the queue and voice state are also held in memory. What you type into
+  <code>/play</code> is used to find the track and isn't stored; only the track that plays shows up in
+  the history.</p>
+
+  <h2 id="not">3. What we don't collect</h2>
+  <ul>
+    <li><b>Message content.</b> The bot has no access to your messages; it only works through slash commands and buttons.</li>
+    <li><b>Voice audio.</b> The bot only sends audio and never records anything.</li>
+    <li><b>Email addresses, IP addresses or payment details.</b> Discord handles all payments.</li>
+    <li><b>Profile information</b> beyond your Discord user ID. We don't sell data, show ads or track you.</li>
+  </ul>
+
+  <h2 id="basis">4. Legal bases</h2>
+  <p>If you are in the EU or UK, we process data:</p>
+  <ul>
+    <li>to provide the service you asked for, such as playing music, saving favorites and Premium
+      (Art. 6(1)(b) GDPR);</li>
+    <li>for our legitimate interest in keeping the bot secure, preventing abuse and fixing problems,
+      through logs and rate limits (Art. 6(1)(f) GDPR).</li>
+  </ul>
+
+  <h2 id="sharing">5. Who else is involved</h2>
+  <ul>
+    <li><b>Discord</b> runs the platform the bot works on and handles all payments for Premium. See
+      <a href="https://discord.com/privacy">Discord's Privacy Policy</a>.</li>
+    <li><b>Sparked Host LLC</b> runs the server the bot lives on, in Miami, Florida, USA. The data in
+      section 2 is therefore stored and processed in the United States, which may not offer the same
+      level of data protection as the EU.</li>
+    <li><b>YouTube and SoundCloud:</b> when you play something, our server sends your search text or link
+      to them to find and stream the track. No user IDs are sent.</li>
+    <li><b>nekos.best:</b> <code>/anime</code> only sends the picture category, such as "hug". No user data is sent.</li>
+    <li><b>Top.gg</b> may receive the total number of servers the bot is in. That number contains no personal data.</li>
+    <li><b>GitHub</b> hosts this website, and processes visitors' IP addresses to deliver and protect it. See
+      <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's Privacy Statement</a>.</li>
+  </ul>
+
+  <h2 id="rights">6. Your rights and how to use them</h2>
+  <p>You have the right to access, correct and delete your data, to restrict or object to its use, and
+  to receive it in a portable format. The quickest way is the <code>/privacy</code> command in Discord:</p>
+  <ul>
+    <li><b>Export my data</b> sends you a file with everything stored about you.</li>
+    <li><b>Delete my data</b> deletes your favorites and feedback, and removes your user ID from the play history and saved playlists.</li>
+    <li>Server admins can also <b>export</b> or <b>delete</b> all of their server's data.</li>
+  </ul>
+  <p>For anything else, contact us (see below). You can also complain to a data protection authority,
+  for example the one where you live.</p>
+
+  <h2 id="children">7. Children</h2>
+  <p>Shehrazad is meant for people who meet Discord's minimum age. If you think we hold data about a
+  child who shouldn't be using Discord, contact us and we'll delete it.</p>
+
+  <h2 id="changes">8. Changes</h2>
+  <p>If we change what we collect or how we use it, we'll update this page and the date at the top, and
+  announce significant changes in advance.</p>
+
+  <h2 id="contact">9. Contact</h2>
+  <p>Use the bot's <code>/feedback</code> command, or open an issue on
+  <a href="https://github.com/Moe-Ara/Shehrazad/issues">GitHub</a>.</p>
+</main>
+<footer>
+  <div class="bar">
+    <span>© 2026 Shehrazad</span>
+    <span><a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a> · <a href="https://github.com/Moe-Ara/Shehrazad">Source code</a></span>
+  </div>
+</footer>
+</body>
+</html>

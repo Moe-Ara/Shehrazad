@@ -1,0 +1,95 @@
+:root {
+  --bg: #f7f5fc;
+  --surface: #ffffff;
+  --text: #1d1838;
+  --muted: #5f5880;
+  --line: #e4dff2;
+  --accent: #8a5a12;
+  --accent-bg: #fff3d6;
+  --link: #6b3fd1;
+  --night: #100c2c;
+  --gold: #f4c766;
+  --gold-light: #ffe2a0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0a24;
+    --surface: #161036;
+    --text: #eee8ff;
+    --muted: #b9aedb;
+    --line: #2a2252;
+    --accent: #ffe2a0;
+    --accent-bg: #2a2050;
+    --link: #c9a8ff;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.65 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: var(--link); }
+a:hover { text-decoration-thickness: 2px; }
+
+/* header */
+.top {
+  background: linear-gradient(180deg, #0b0822 0%, #1b1446 70%, #2a1650 100%);
+  color: #eee8ff;
+  border-bottom: 1px solid rgba(244, 199, 102, .25);
+}
+.top .bar {
+  max-width: 880px; margin: 0 auto; padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--gold-light); text-decoration: none; font-weight: 700; font-size: 18px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; border: 2px solid rgba(244, 199, 102, .5); }
+.nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav a { color: #ddd4ff; text-decoration: none; padding: 6px 12px; border-radius: 999px; font-size: 15px; }
+.nav a:hover, .nav a[aria-current="page"] { background: rgba(255, 255, 255, .1); color: #fff; }
+
+/* buttons */
+.btn {
+  display: inline-block; padding: 11px 22px; border-radius: 999px; font-weight: 700; text-decoration: none;
+  border: 1px solid rgba(244, 199, 102, .4); color: #eee8ff; background: rgba(255, 255, 255, .05);
+}
+.btn.gold { background: linear-gradient(135deg, #ffe2a0, #f4c766 45%, #d99a3c); color: #2a1606; border-color: transparent; }
+.btn:hover { filter: brightness(1.06); }
+
+/* home */
+.hero { background: var(--night); }
+.hero img { display: block; width: 100%; max-width: 1360px; margin: 0 auto; height: auto; }
+.intro { max-width: 880px; margin: 0 auto; padding: 28px 16px 8px; text-align: center; }
+.intro p { font-size: 18px; color: var(--muted); margin: 0 auto 22px; max-width: 640px; }
+.intro .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.intro .btn:not(.gold) { color: var(--text); border-color: var(--line); background: var(--surface); }
+.features { max-width: 880px; margin: 24px auto; padding: 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.features div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+.features b { display: block; margin-bottom: 4px; }
+.features span { color: var(--muted); font-size: 15px; }
+
+/* documents */
+main.doc { max-width: 760px; margin: 0 auto; padding: 32px 16px 56px; }
+main.doc h1 { font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+main.doc .meta { color: var(--muted); margin: 0 0 24px; }
+main.doc h2 { font-size: 21px; margin: 34px 0 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+main.doc h3 { font-size: 17px; margin: 22px 0 6px; }
+main.doc ul { padding-left: 22px; }
+main.doc li { margin: 4px 0; }
+.summary { background: var(--accent-bg); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 14px 18px; margin: 0 0 8px; }
+.summary p { margin: 6px 0; }
+.toc { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 18px; margin: 18px 0 0; }
+.toc ol { margin: 6px 0; padding-left: 22px; }
+.table-wrap { overflow-x: auto; margin: 10px 0; }
+table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { background: var(--accent-bg); }
+tr:last-child td { border-bottom: 0; }
+code { font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: .92em; background: var(--accent-bg); padding: 1px 6px; border-radius: 5px; }
+
+/* footer */
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer .bar { max-width: 880px; margin: 0 auto; padding: 18px 16px 28px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+footer a { color: var(--muted); }
