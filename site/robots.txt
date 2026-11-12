@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://moe-ara.github.io/Shehrazad/sitemap.xml
